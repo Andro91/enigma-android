@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--  Active tab -->
+    <item
+        android:state_focused="true"
+        android:drawable="@drawable/edittext_drawable" />
+    <!--  Inactive tab -->
+    <item
+        android:state_focused="false"
+        android:drawable="@drawable/edittext_drawable" />
+
+    <item
+        android:state_enabled="false"
+        android:drawable="@drawable/edittext_drawable_disabled" />
+
+    <item
+        android:drawable="@drawable/edittext_drawable" />
+</selector>
