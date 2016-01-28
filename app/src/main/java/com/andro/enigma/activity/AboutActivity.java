@@ -23,7 +23,7 @@ import com.andro.enigma.settings.MySettings;
 
 import java.util.Locale;
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

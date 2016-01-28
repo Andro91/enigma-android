@@ -45,6 +45,14 @@ public class MainMenuActivity extends Activity {
             }
         });
 
+        paid25.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainMenuActivity.this, PackageActivty.class);
+                startActivity(i);
+            }
+        });
+
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

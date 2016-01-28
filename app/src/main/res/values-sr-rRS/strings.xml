@@ -24,5 +24,6 @@
     <string name="record_time">Rekordno vreme: </string>
     <string name="previous">&lt;&lt;</string>
     <string name="next">&gt;&gt;</string>
+    <string name="get_package">Preuzmi paket</string>
 
 </resources>

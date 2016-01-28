@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.andro.enigma">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/crossword_icon"
@@ -52,9 +54,10 @@
         </activity>
         <activity
             android:name=".activity.PackageActivty"
-            android:label="@string/title_activity_package_activty">
-
-        </activity>
+            android:label="@string/title_activity_package_activty"></activity>
+        <activity
+            android:name=".activity.GetPackageActivity"
+            android:label="@string/title_activity_get_package"></activity>
     </application>
 
 </manifest>

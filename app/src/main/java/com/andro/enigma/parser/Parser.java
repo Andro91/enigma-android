@@ -39,6 +39,18 @@ public class Parser {
 
                     String dataItem = new String();
 
+
+
+
+
+
+
+
+
+
+
+
+
 //                    if (pom.has("title")) {
 //                        dataItem.setTitle(pom.getString("title"));
 //                    }

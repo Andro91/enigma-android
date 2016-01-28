@@ -24,5 +24,7 @@
     <string name="previous">&lt;&lt;</string>
     <string name="next">&gt;&gt;</string>
     <string name="title_activity_package_activty">PackageActivty</string>
+    <string name="title_activity_get_package">GetPackageActivity</string>
+    <string name="get_package">Get package</string>
 
 </resources>
