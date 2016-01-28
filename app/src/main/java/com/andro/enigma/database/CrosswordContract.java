@@ -10,6 +10,7 @@ public class CrosswordContract {
     public static abstract class CrosswordEntry{
         public static final String TABLE_NAME = "crosswords";
         public static final String COLUMN_NAME_ID = "id";
+        public static final String COLUMN_NAME_PACKAGE_ID = "packageId";
         public static final String COLUMN_NAME_CROSSWORD_NUMBER = "crosswordNumber";
         public static final String COLUMN_NAME_TEXT = "text";
         public static final String COLUMN_NAME_SOLVED = "solved";

@@ -6,7 +6,7 @@ package com.andro.enigma.database;
  */
 public class Crossword {
 
-    public Crossword(int ID, int crosswordNumber, String text, String solved, String time, String locale) {
+    public Crossword(int ID, int crosswordNumber, int packageId, String text, String solved, String time, String locale) {
         this.ID = ID;
         this.crosswordNumber = crosswordNumber;
         this.text = text;
@@ -17,6 +17,7 @@ public class Crossword {
 
     public int ID;
     public int crosswordNumber;
+    public int packageId;
     public String text;
     public String solved;
     public String time;

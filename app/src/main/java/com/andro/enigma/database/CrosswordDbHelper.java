@@ -19,6 +19,7 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + CrosswordEntry.TABLE_NAME + " (" +
                     CrosswordEntry.COLUMN_NAME_ID + " INTEGER PRIMARY KEY," +
                     CrosswordEntry.COLUMN_NAME_CROSSWORD_NUMBER + " INTEGER " + COMMA_SEP +
+                    CrosswordEntry.COLUMN_NAME_PACKAGE_ID + " INTEGER " + COMMA_SEP +
                     CrosswordEntry.COLUMN_NAME_TEXT + TEXT_TYPE + COMMA_SEP +
                     CrosswordEntry.COLUMN_NAME_SOLVED + TEXT_TYPE + COMMA_SEP +
                     CrosswordEntry.COLUMN_NAME_TIME + TEXT_TYPE + COMMA_SEP +
@@ -29,7 +30,7 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
             "DROP TABLE IF EXISTS " + CrosswordEntry.TABLE_NAME;
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "CrosswordDB.db";
 
     public CrosswordDbHelper(Context context) {
@@ -57,6 +58,7 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(CrosswordEntry.COLUMN_NAME_ID, c.ID);
         values.put(CrosswordEntry.COLUMN_NAME_CROSSWORD_NUMBER, c.crosswordNumber);
+        values.put(CrosswordEntry.COLUMN_NAME_PACKAGE_ID, c.packageId);
         values.put(CrosswordEntry.COLUMN_NAME_TEXT, c.text);
         values.put(CrosswordEntry.COLUMN_NAME_SOLVED, c.solved);
         values.put(CrosswordEntry.COLUMN_NAME_TIME, c.time);
@@ -86,6 +88,7 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
         String[] projection = {
                 CrosswordEntry.COLUMN_NAME_ID,
                 CrosswordEntry.COLUMN_NAME_CROSSWORD_NUMBER,
+                CrosswordEntry.COLUMN_NAME_PACKAGE_ID,
                 CrosswordEntry.COLUMN_NAME_TEXT,
                 CrosswordEntry.COLUMN_NAME_SOLVED,
                 CrosswordEntry.COLUMN_NAME_TIME,
