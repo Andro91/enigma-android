@@ -9,6 +9,7 @@ public class Crossword {
     public Crossword(int ID, int crosswordNumber, int packageId, String text, String solved, String time, String locale) {
         this.ID = ID;
         this.crosswordNumber = crosswordNumber;
+        this.packageId = packageId;
         this.text = text;
         this.solved = solved;
         this.time = time;

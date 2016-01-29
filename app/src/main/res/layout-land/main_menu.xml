@@ -41,13 +41,14 @@
         android:id="@+id/button_25"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/main_menu_button_2"/>
+        android:text="@string/main_menu_button_4"/>
     <Button
         style="@style/MyButtonStyle"
         android:id="@+id/button_50"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/main_menu_button_3"/>
+        android:text="@string/main_menu_button_3"
+        android:visibility="gone"/>
     <Button
         style="@style/MyButtonStyle"
         android:id="@+id/button_settings"

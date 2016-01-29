@@ -41,6 +41,7 @@ public class MainActivity extends Activity {
     private TextView crosswordRecordTimeTV;
     private char[] letters;
     private int crosswordNumber;
+    private int packageId;
     private String currentLocale;
     private String excludeString = "AEIOU";
     private Helper helper;
@@ -95,6 +96,8 @@ public class MainActivity extends Activity {
         helper = new Helper();
 
         crosswordNumber = getIntent().getIntExtra("crosswordNumber",1);
+        packageId = Integer.parseInt(getIntent().getStringExtra("id"));
+
         crosswordNumberTV = (TextView) findViewById(R.id.text_crossword_number);
         crosswordRecordTimeTV = (TextView) findViewById(R.id.text_record_time);
         Button next = (Button) findViewById(R.id.button_next);
@@ -106,7 +109,7 @@ public class MainActivity extends Activity {
                 if(getCrosswordNumber() == 10){return;}
                 clearCrossword();
                 setCrosswordNumber(getCrosswordNumber()+1);
-                initializeCrossword(getCrosswordNumber(), getLocale());
+                initializeCrossword(getCrosswordNumber(), getLocale(), packageId);
             }
         });
 
@@ -117,7 +120,7 @@ public class MainActivity extends Activity {
                 if(getCrosswordNumber() == 1){return;}
                 clearCrossword();
                 setCrosswordNumber(getCrosswordNumber()-1);
-                initializeCrossword(getCrosswordNumber(), getLocale());
+                initializeCrossword(getCrosswordNumber(), getLocale(), packageId);
             }
         });
 
@@ -187,8 +190,9 @@ public class MainActivity extends Activity {
      * @param crosswordNumber
      * Number of the crossword to load
      */
-    private void initializeCrossword(int crosswordNumber, String locale) {
+    private void initializeCrossword(int crosswordNumber, String locale, int packageId) {
 
+//        Log.d("MYTAG","initializeCrossword("+ crosswordNumber +", " + locale + ", " + packageId + ");");
         clearCrossword();
         Context context = getApplicationContext();
         CrosswordDbHelper mDbHelper = new CrosswordDbHelper(context);
@@ -197,9 +201,9 @@ public class MainActivity extends Activity {
         Cursor c = null;
         String lang = PreferenceManager.getDefaultSharedPreferences(this).getString("listPref", "en_US");
         if (lang.equals("en_US")){
-            c = mDbHelper.getAllCrosswords("en");
+            c = mDbHelper.getAllCrosswords(packageId);
         } else if (lang.equals("sr_RS")){
-            c = mDbHelper.getAllCrosswords("sr");
+            c = mDbHelper.getAllCrosswords(packageId);
         }
 
 
@@ -208,7 +212,7 @@ public class MainActivity extends Activity {
 //
 //        if(c.moveToFirst()){
 //           do{
-//               Log.d("DATABASE RECORD", "" + c.getString(c.getColumnIndexOrThrow(CrosswordEntry.COLUMN_NAME_CROSSWORD_NUMBER)));
+//               Log.d("DATABASE RECORD", " ID " +c.getInt(0)+ " num "+ c.getInt(1) + " idpack" + c.getInt(2));
 //           }while(c.moveToNext());
 //        }
 
@@ -223,10 +227,9 @@ public class MainActivity extends Activity {
 
         if(locale.equalsIgnoreCase("sr_RS")) {
             for (int i = 0; i <= 35; i++) {
-
                 if (excludeString.contains(""+charArray[i])) {
-                    getField(i).setEnabled(false);
-                    getField(i).setBackgroundResource(R.drawable.background_black);
+                    getField(i).setEnabled(true);
+                    getField(i).setBackgroundResource(R.drawable.edittext_drawable);
                 } else if (helper.charMap.containsKey(""+charArray[i])) {
                     InputFilter[] FilterArray = new InputFilter[1];
                     FilterArray[0] = new InputFilter.LengthFilter(2);
@@ -234,41 +237,10 @@ public class MainActivity extends Activity {
                     getField(i).setText(String.valueOf(helper.charMap.get(""+charArray[i])));
                     getField(i).setEnabled(false);
                     getField(i).setBackgroundResource(R.drawable.edittext_drawable);
-//                } else if (charArray[i] == 'Q') {
-//                    InputFilter[] FilterArray = new InputFilter[1];
-//                    FilterArray[0] = new InputFilter.LengthFilter(2);
-//                    getField(i).setFilters(FilterArray);
-//                    getField(i).setText(String.valueOf("LJ"));
-//                    getField(i).setEnabled(false);
-//                    getField(i).setBackgroundResource(R.drawable.edittext_drawable);
-//                } else if (charArray[i] == 'X') {
-//                    InputFilter[] FilterArray = new InputFilter[1];
-//                    FilterArray[0] = new InputFilter.LengthFilter(2);
-//                    getField(i).setFilters(FilterArray);
-//                    getField(i).setText(String.valueOf("Dž"));
-//                    getField(i).setEnabled(false);
-//                    getField(i).setBackgroundResource(R.drawable.edittext_drawable);
-//                } else if (charArray[i] == '^') {
-//                    getField(i).setText(String.valueOf("Č"));
-//                    getField(i).setEnabled(false);
-//                    getField(i).setBackgroundResource(R.drawable.edittext_drawable);
-//                } else if (charArray[i] == '[') {
-//                    getField(i).setText(String.valueOf("Š"));
-//                    getField(i).setEnabled(false);
-//                    getField(i).setBackgroundResource(R.drawable.edittext_drawable);
-//                } else if (charArray[i] == ']') {
-//                    getField(i).setText(String.valueOf("Ć"));
-//                    getField(i).setEnabled(false);
-//                    getField(i).setBackgroundResource(R.drawable.edittext_drawable);
-//                } else if (charArray[i] == '@') {
-//                    getField(i).setText(String.valueOf("Ž"));
-//                    getField(i).setEnabled(false);
-//                    getField(i).setBackgroundResource(R.drawable.edittext_drawable);
-//                } else if (charArray[i] == '\\') {
-//                    getField(i).setText(String.valueOf("Đ"));
-//                    getField(i).setEnabled(false);
-//                    getField(i).setBackgroundResource(R.drawable.edittext_drawable);
-                } else if (Character.isUpperCase(charArray[i])) {
+                } else if (charArray[i] == '_') {
+                    getField(i).setEnabled(false);
+                    getField(i).setBackgroundResource(R.drawable.background_black);
+                } else {
                     getField(i).setText(String.valueOf(charArray[i]));
                     getField(i).setEnabled(false);
                     getField(i).setBackgroundResource(R.drawable.edittext_drawable);
@@ -276,32 +248,13 @@ public class MainActivity extends Activity {
             }
         } else if (locale.equalsIgnoreCase("en_US")){
             for (int i = 0; i <= 35; i++) {
-
                 if (charArray[i] == '_') {
                     getField(i).setEnabled(false);
                     getField(i).setBackgroundResource(R.drawable.background_black);
-                } else if (charArray[i] == 'W') {
-                    InputFilter[] FilterArray = new InputFilter[1];
-                    FilterArray[0] = new InputFilter.LengthFilter(2);
-                    getField(i).setFilters(FilterArray);
-                    getField(i).setText(String.valueOf("NJ"));
-                    getField(i).setEnabled(false);
+                } else if (excludeString.contains(""+charArray[i])) {
+                    getField(i).setEnabled(true);
                     getField(i).setBackgroundResource(R.drawable.edittext_drawable);
-                } else if (charArray[i] == 'Q') {
-                    InputFilter[] FilterArray = new InputFilter[1];
-                    FilterArray[0] = new InputFilter.LengthFilter(2);
-                    getField(i).setFilters(FilterArray);
-                    getField(i).setText(String.valueOf("lj"));
-                    getField(i).setEnabled(false);
-                    getField(i).setBackgroundResource(R.drawable.edittext_drawable);
-                } else if (charArray[i] == 'X') {
-                    InputFilter[] FilterArray = new InputFilter[1];
-                    FilterArray[0] = new InputFilter.LengthFilter(2);
-                    getField(i).setFilters(FilterArray);
-                    getField(i).setText(String.valueOf("dž"));
-                    getField(i).setEnabled(false);
-                    getField(i).setBackgroundResource(R.drawable.edittext_drawable);
-                } else if (Character.isUpperCase(charArray[i])) {
+                } else {
                     getField(i).setText(String.valueOf(charArray[i]));
                     getField(i).setEnabled(false);
                     getField(i).setBackgroundResource(R.drawable.edittext_drawable);
@@ -318,7 +271,7 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         setLocale();
-        initializeCrossword(crosswordNumber, getLocale());
+        initializeCrossword(crosswordNumber, getLocale(),packageId);
     }
 
     private String getLocale() {

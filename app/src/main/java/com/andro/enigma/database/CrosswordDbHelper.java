@@ -3,8 +3,10 @@ package com.andro.enigma.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.andro.enigma.database.CrosswordContract.CrosswordEntry;
 
@@ -15,7 +17,7 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
 
     private static final String TEXT_TYPE = " TEXT";
     private static final String COMMA_SEP = ",";
-    private static final String SQL_CREATE_ENTRIES =
+    private static final String SQL_CREATE_ENIGMA_TABLE =
             "CREATE TABLE " + CrosswordEntry.TABLE_NAME + " (" +
                     CrosswordEntry.COLUMN_NAME_ID + " INTEGER PRIMARY KEY," +
                     CrosswordEntry.COLUMN_NAME_CROSSWORD_NUMBER + " INTEGER " + COMMA_SEP +
@@ -25,6 +27,13 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
                     CrosswordEntry.COLUMN_NAME_TIME + TEXT_TYPE + COMMA_SEP +
                     CrosswordEntry.COLUMN_NAME_LOCALE +
                     " )";
+
+    private static final String SQL_CREATE_PACKAGE_TABLE =
+            "CREATE TABLE packages (" +
+                    " id INTEGER PRIMARY KEY, " +
+                    " id_type INTEGER, " +
+                    " lang TEXT, " +
+                    " title TEXT ) ";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + CrosswordEntry.TABLE_NAME;
@@ -38,7 +47,8 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
     }
 
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_CREATE_ENTRIES);
+        db.execSQL(SQL_CREATE_ENIGMA_TABLE);
+        db.execSQL(SQL_CREATE_PACKAGE_TABLE);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -55,6 +65,9 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
     public long addCrossword(Crossword c) {
         SQLiteDatabase db = this.getWritableDatabase();
 
+        Log.d("ADD", "ID " + c.ID + " packageID " + c.packageId);
+
+
         ContentValues values = new ContentValues();
         values.put(CrosswordEntry.COLUMN_NAME_ID, c.ID);
         values.put(CrosswordEntry.COLUMN_NAME_CROSSWORD_NUMBER, c.crosswordNumber);
@@ -64,9 +77,33 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
         values.put(CrosswordEntry.COLUMN_NAME_TIME, c.time);
         values.put(CrosswordEntry.COLUMN_NAME_LOCALE, c.locale);
 
+        long newRowId = -1;
+
+        try {
+            newRowId = db.insertOrThrow(
+                    CrosswordContract.CrosswordEntry.TABLE_NAME,
+                    null,
+                    values);
+        }catch(SQLException ex){
+            Log.d("MYTAG","SQL Insert Exception " + ex.getMessage());
+        }
+
+        db.close();
+        return newRowId;
+    }
+
+    public long addPackage(Package p) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("id", p.getId());
+        values.put("id_type", p.getIdType());
+        values.put("lang", p.getLang());
+        values.put("title", p.getTitle());
+
         long newRowId;
         newRowId = db.insert(
-                CrosswordContract.CrosswordEntry.TABLE_NAME,
+                "packages",
                 null,
                 values);
 
@@ -112,6 +149,24 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
                 null,                                               // don't filter by row groups
                 sortOrder                                           // The sort order
         );
+
+        return c;
+    }
+
+    public Cursor getAllCrosswords(int packageId) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor c = db.rawQuery("SELECT * FROM crosswords WHERE packageId = " + packageId, null);
+
+        return c;
+    }
+
+    public Cursor getAllPackages(String locale) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor c = db.rawQuery("SELECT * FROM packages WHERE lang LIKE '" + locale + "'", null);
 
         return c;
     }

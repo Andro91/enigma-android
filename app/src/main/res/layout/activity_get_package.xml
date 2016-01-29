@@ -38,4 +38,13 @@
         android:text="@string/get_package"
         android:layout_gravity="center"/>
 
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/textView_package_done"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:text=""
+        />
 </LinearLayout>

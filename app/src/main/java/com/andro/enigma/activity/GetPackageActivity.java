@@ -23,6 +23,9 @@ import java.util.ArrayList;
 public class GetPackageActivity extends Activity {
 
     private int packageId;
+    private String packageTitle;
+    private int type;
+    private String lang;
     CrosswordDbHelper mDbHelper;
 
     @Override
@@ -31,6 +34,9 @@ public class GetPackageActivity extends Activity {
         setContentView(R.layout.activity_get_package);
 
         packageId = Integer.parseInt(getIntent().getStringExtra("id"));
+        packageTitle = getIntent().getStringExtra("title");
+        lang = getIntent().getStringExtra("lang");
+        type = Integer.parseInt(getIntent().getStringExtra("type"));
 
         mDbHelper = new CrosswordDbHelper(GetPackageActivity.this);
 
@@ -38,7 +44,7 @@ public class GetPackageActivity extends Activity {
 
         Button button = (Button) findViewById(R.id.button_get_package);
 
-        title.setText(getIntent().getStringExtra("title"));
+        title.setText(packageTitle);
 
         button.setOnClickListener(new View.OnClickListener(){
 
@@ -81,12 +87,16 @@ public class GetPackageActivity extends Activity {
                 Log.d("MYTAG", "" + e.getMessage());
             }
 
+            Package p = new Package(""+packageId,packageTitle,lang,"","",""+type);
+
+            mDbHelper.addPackage(p);
+
             for(int i = 0; i < data.length(); i++){
                 try {
                     JSONObject obj = data.getJSONObject(i);
                     enigma = new Crossword(
                             Integer.parseInt(obj.getString("id_crw")),
-                            i,
+                            i+1,
                             packageId,
                             obj.getString("words"),
                             "NO",
@@ -96,13 +106,10 @@ public class GetPackageActivity extends Activity {
                 }catch (JSONException ex){
                     Log.d("MYTAG", "JSONException " + ex.getMessage());
                 }finally {
-                    //list.add(enigma);
-                    Log.d("MYTAG", "List items = " + list.size());
-                    mDbHelper.addCrossword(enigma);
+                    Log.d("MYTAG", "Insert ID " + mDbHelper.addCrossword(enigma));
                 }
             }
-
-
+            ((TextView) findViewById(R.id.textView_package_done)).setText("DONE!");
         }
     }
 

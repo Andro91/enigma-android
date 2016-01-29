@@ -54,11 +54,11 @@ public class Package {
         this.published = published;
     }
 
-    public String getId_type() {
+    public String getIdType() {
         return id_type;
     }
 
-    public void setId_type(String id_type) {
+    public void setIdType(String id_type) {
         this.id_type = id_type;
     }
 

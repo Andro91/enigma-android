@@ -63,7 +63,16 @@ public class PackageActivty extends Activity {
                 try {
                     JSONObject obj = result.getJSONObject(i);
                     Log.d("MYTAG","Title = " + obj.getString("title"));
-                    pack = new Package(obj.getString("id"),obj.getString("title"),obj.getString("lang"),obj.getString("date_created"),obj.getString("published"),obj.getString("id_type"));
+
+                    String id = obj.getString("id");
+                    String title = obj.getString("title");
+                    String lang = obj.getString("lang");
+                    String dateCreated = obj.getString("date_created");
+                    String published = obj.getString("published");
+                    String idType = obj.getString("id_type");
+
+                    pack = new Package(id,title,lang,dateCreated,published,idType);
+
                 }catch (JSONException ex){
                     Log.d("MYTAG", "JSONException " + ex.getMessage());
                 }finally {

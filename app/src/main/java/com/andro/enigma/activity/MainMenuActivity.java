@@ -31,7 +31,7 @@ public class MainMenuActivity extends Activity {
 
         activity = this;
 
-        paid50 = (Button) findViewById(R.id.button_50);
+        //paid50 = (Button) findViewById(R.id.button_50);
         paid25 = (Button) findViewById(R.id.button_25);
         free = (Button) findViewById(R.id.button_free);
         settings = (Button) findViewById(R.id.button_settings);
@@ -39,7 +39,7 @@ public class MainMenuActivity extends Activity {
         free.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainMenuActivity.this, MainActivity.class);
+                Intent i = new Intent(MainMenuActivity.this, SelectPackage.class);
                 i.putExtra("crosswordNumber",1);
                 startActivity(i);
             }

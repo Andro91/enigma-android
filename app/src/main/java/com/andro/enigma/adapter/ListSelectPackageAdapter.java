@@ -1,11 +1,5 @@
 package com.andro.enigma.adapter;
 
-/**
- * Created by Internet on 28-Jan-16.
- */
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,15 +11,22 @@ import android.widget.TextView;
 
 import com.andro.enigma.R;
 import com.andro.enigma.activity.GetPackageActivity;
+import com.andro.enigma.activity.MainActivity;
+import com.andro.enigma.database.*;
 import com.andro.enigma.database.Package;
 
-public class ListAdapter extends ArrayAdapter<Package> {
+import java.util.ArrayList;
+
+/**
+ * Created by Internet on 29-Jan-16.
+ */
+public class ListSelectPackageAdapter extends ArrayAdapter<Package> {
 
     private Context context;
     private int layoutResourceId;
     private ArrayList<Package> data = new ArrayList<>();
 
-    public ListAdapter(Context context, int layoutResourceId,
+    public ListSelectPackageAdapter(Context context, int layoutResourceId,
                        ArrayList<Package> data) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
@@ -66,12 +67,13 @@ public class ListAdapter extends ArrayAdapter<Package> {
             public void onClick(View view) {
                 // TODO Auto-generated method stub
 
-                Intent intent = new Intent(context, GetPackageActivity.class);
+                Intent intent = new Intent(context, MainActivity.class);
 
                 intent.putExtra("id", data.get(position).getId());
                 intent.putExtra("title", data.get(position).getTitle());
                 intent.putExtra("lang", data.get(position).getLang());
                 intent.putExtra("type", data.get(position).getIdType());
+                intent.putExtra("crosswordNumber",1);
 
                 context.startActivity(intent);
             }
@@ -80,4 +82,3 @@ public class ListAdapter extends ArrayAdapter<Package> {
         return row;
     }
 }
-
