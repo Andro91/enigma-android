@@ -24,9 +24,11 @@
     <string name="record_time">Record time: </string>
     <string name="previous">&lt;&lt;</string>
     <string name="next">&gt;&gt;</string>
-    <string name="title_activity_package_activty">PackageActivty</string>
-    <string name="title_activity_get_package">GetPackageActivity</string>
+    <string name="title_activity_package_activty">Available packages</string>
+    <string name="title_activity_get_package">Get new package</string>
     <string name="get_package">Get package</string>
-    <string name="title_activity_select_package">SelectPackage</string>
+    <string name="title_activity_select_package">Select a package</string>
+    <string name="test_short">lorem</string>
+    <string name="test_long">lorem ipsum sedare dolomit</string>
 
 </resources>

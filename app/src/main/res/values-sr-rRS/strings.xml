@@ -26,5 +26,10 @@
     <string name="previous">&lt;&lt;</string>
     <string name="next">&gt;&gt;</string>
     <string name="get_package">Preuzmi paket</string>
+    <string name="title_activity_get_package">Preuzmite novi paket</string>
+    <string name="title_activity_package_activty">Dostupni paketi</string>
+    <string name="title_activity_select_package">Odaberite paket</string>
+    <string name="test_long">lorem ipsum sedare dolomit</string>
+    <string name="test_short">lorem</string>
 
 </resources>
