@@ -1,5 +1,8 @@
 package com.andro.enigma.helper;
 
+import android.content.Context;
+import android.preference.PreferenceManager;
+
 import java.util.HashMap;
 
 /**
@@ -21,8 +24,21 @@ public class Helper {
         charMap.put("\\","Đ");
     }
 
-
-
+    public static boolean contains(final int[] array, final int key) {
+        for (final int i : array) {
+            if (i == key) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public static String getLocale(Context c) {
+        if (PreferenceManager.getDefaultSharedPreferences(c).getString("listPref", "sr_RS").equalsIgnoreCase("sr_RS")) {
+            return "sr";
+        } else {
+            return "en";
+        }
+    }
 
 
 }
