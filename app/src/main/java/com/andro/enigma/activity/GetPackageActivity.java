@@ -27,6 +27,7 @@ public class GetPackageActivity extends Activity {
     private int type;
     private String lang;
     CrosswordDbHelper mDbHelper;
+    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,8 @@ public class GetPackageActivity extends Activity {
 
         TextView title = (TextView) findViewById(R.id.textView_package_title);
 
-        Button button = (Button) findViewById(R.id.button_get_package);
+
+        button = (Button) findViewById(R.id.button_get_package);
 
         title.setText(packageTitle);
 
@@ -61,6 +63,10 @@ public class GetPackageActivity extends Activity {
         protected void onPreExecute() {
             // TODO Auto-generated method stub
             super.onPreExecute();
+            button.setEnabled(false);
+            button.setTextColor(888888);
+            findViewById(R.id.progressBar2).setVisibility(View.VISIBLE);
+            ((TextView) findViewById(R.id.textView_package_done)).setText("Please wait!");
         }
 
         @Override
@@ -110,6 +116,7 @@ public class GetPackageActivity extends Activity {
                 }
             }
             ((TextView) findViewById(R.id.textView_package_done)).setText("DONE!");
+            findViewById(R.id.progressBar2).setVisibility(View.GONE);
         }
     }
 

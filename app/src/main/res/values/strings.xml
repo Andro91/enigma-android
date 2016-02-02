@@ -30,5 +30,8 @@
     <string name="title_activity_select_package">Select a package</string>
     <string name="test_short">lorem</string>
     <string name="test_long">lorem ipsum sedare dolomit</string>
+    <string name="title_label">Package title:</string>
+    <string name="price_label">Package price:</string>
+    <string name="number_label">Number of enigmas:</string>
 
 </resources>

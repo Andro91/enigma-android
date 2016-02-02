@@ -73,6 +73,8 @@ public class ListSelectPackageAdapter extends ArrayAdapter<Package> {
                 intent.putExtra("title", data.get(position).getTitle());
                 intent.putExtra("lang", data.get(position).getLang());
                 intent.putExtra("type", data.get(position).getIdType());
+                intent.putExtra("count", data.get(position).getEnigmaCount());
+                intent.putExtra("solved", data.get(position).getSolvedCount());
                 intent.putExtra("crosswordNumber",1);
 
                 context.startActivity(intent);

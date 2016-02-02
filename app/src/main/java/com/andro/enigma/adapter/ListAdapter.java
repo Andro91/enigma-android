@@ -84,7 +84,7 @@ public class ListAdapter extends ArrayAdapter<Package> {
                 textPrice.setText("5$");
             }
             if (textNumber != null){
-                textNumber.setText("20 enigmas");
+                textNumber.setText(p.getEnigmaCount() + " enigmas");
             }
             try {
                 if(Helper.contains(idList,Integer.parseInt(p.getId()))){

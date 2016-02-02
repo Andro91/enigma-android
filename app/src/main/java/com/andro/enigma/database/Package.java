@@ -14,6 +14,17 @@ public class Package {
         this.id_type = id_type;
     }
 
+    public Package(String id, String title, String lang, String date_created, String published, String id_type, int enigmaCount, int solvedCount) {
+        this.id = id;
+        this.title = title;
+        this.lang = lang;
+        this.date_created = date_created;
+        this.published = published;
+        this.id_type = id_type;
+        this.enigmaCount = enigmaCount;
+        this.solvedCount = solvedCount;
+    }
+
     public String getId() {
         return id;
     }
@@ -68,4 +79,23 @@ public class Package {
     private String date_created;
     private String published;
     private String id_type;
+
+    public int getEnigmaCount() {
+        return enigmaCount;
+    }
+
+    public void setEnigmaCount(int enigmaCount) {
+        this.enigmaCount = enigmaCount;
+    }
+
+    public int getSolvedCount() {
+        return solvedCount;
+    }
+
+    public void setSolvedCount(int solvedCount) {
+        this.solvedCount = solvedCount;
+    }
+
+    private int enigmaCount;
+    private int solvedCount;
 }
