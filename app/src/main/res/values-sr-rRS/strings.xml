@@ -34,5 +34,8 @@
     <string name="title_label">Naziv paketa: </string>
     <string name="price_label">Cena paketa: </string>
     <string name="number_label">Broj enigmi</string>
+    <string name="download_done">Preuzimanje završeno.</string>
+    <string name="enigmas_text">enigmi</string>
+    <string name="download">Preuzimanje...</string>
 
 </resources>

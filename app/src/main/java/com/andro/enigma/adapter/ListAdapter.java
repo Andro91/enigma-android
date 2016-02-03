@@ -81,14 +81,15 @@ public class ListAdapter extends ArrayAdapter<Package> {
                 textTitle.setText(p.getTitle());
             }
             if (textPrice != null) {
-                textPrice.setText("5$");
+                textPrice.setText("5" + "\u20ac");
             }
             if (textNumber != null){
-                textNumber.setText(p.getEnigmaCount() + " enigmas");
+                String headerText = String.format("%s %s", p.getEnigmaCount(), context.getResources().getString(R.string.enigmas_text));
+                textNumber.setText(headerText);
             }
             try {
                 if(Helper.contains(idList,Integer.parseInt(p.getId()))){
-                    imageTick.setImageResource(R.mipmap.ic_tick_round);
+                    imageTick.setImageResource(R.mipmap.checked);
                 }
             }catch (NullPointerException ex){
                 Log.d("MYTAG", ex.getMessage());

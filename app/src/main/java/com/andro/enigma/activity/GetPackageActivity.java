@@ -1,5 +1,6 @@
 package com.andro.enigma.activity;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -64,9 +65,9 @@ public class GetPackageActivity extends Activity {
             // TODO Auto-generated method stub
             super.onPreExecute();
             button.setEnabled(false);
-            button.setTextColor(888888);
+            button.setTextColor(Color.parseColor("#999999"));
             findViewById(R.id.progressBar2).setVisibility(View.VISIBLE);
-            ((TextView) findViewById(R.id.textView_package_done)).setText("Please wait!");
+            ((TextView) findViewById(R.id.textView_package_done)).setText(R.string.download);
         }
 
         @Override
@@ -115,7 +116,7 @@ public class GetPackageActivity extends Activity {
                     Log.d("MYTAG", "Insert ID " + mDbHelper.addCrossword(enigma));
                 }
             }
-            ((TextView) findViewById(R.id.textView_package_done)).setText("DONE!");
+            ((TextView) findViewById(R.id.textView_package_done)).setText(R.string.download_done);
             findViewById(R.id.progressBar2).setVisibility(View.GONE);
         }
     }
