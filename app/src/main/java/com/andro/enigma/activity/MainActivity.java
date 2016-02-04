@@ -97,7 +97,7 @@ public class MainActivity extends Activity {
         helper = new Helper();
 
         crosswordNumber = getIntent().getIntExtra("crosswordNumber",1);
-        packageId = Integer.parseInt(getIntent().getStringExtra("id"));
+        packageId = getIntent().getIntExtra("id",0);
 
         crosswordNumberTV = (TextView) findViewById(R.id.text_crossword_number);
         crosswordRecordTimeTV = (TextView) findViewById(R.id.text_record_time);
@@ -201,12 +201,7 @@ public class MainActivity extends Activity {
         //TODO Figure out the best way to solve enigma localization
         Cursor c = null;
         String lang = PreferenceManager.getDefaultSharedPreferences(this).getString("listPref", "en_US");
-        if (lang.equals("en_US")){
-            c = mDbHelper.getAllCrosswords(packageId);
-        } else if (lang.equals("sr_RS")){
-            c = mDbHelper.getAllCrosswords(packageId);
-        }
-
+        c = mDbHelper.getAllCrosswords(packageId);
 
 //        UNCOMMENT TO ECHO DATABASE RECORDS
 //        Log.d("DATABASE COUNT", "" + c.getCount());
@@ -297,6 +292,23 @@ public class MainActivity extends Activity {
         ((TextView)findViewById(R.id.label_record_time)).setText(getResources().getString(R.string.record_time));
         ((TextView)findViewById(R.id.label_enigma_number)).setText(getResources().getString(R.string.crossword_number));
         currentLocale = languageToLoad;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CrosswordDbHelper mDbHelper = new CrosswordDbHelper(this);
+        Cursor c = mDbHelper.getAllCrosswords(packageId);
+        int solved = 0;
+        if (c != null) {
+            while(c.moveToNext()) {
+                if(c.getString(4).equalsIgnoreCase("YES")){
+                    solved++;
+                }
+            }
+            c.close();
+        }
+        mDbHelper.updatePackageSolved(packageId,solved);
     }
 
     @Override

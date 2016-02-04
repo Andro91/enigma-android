@@ -5,31 +5,30 @@ package com.andro.enigma.database;
  */
 public class Package {
 
-    public Package(String id, String title, String lang, String date_created, String published, String id_type) {
+    public Package(int id, String title, String lang, String date_created, int idType) {
         this.id = id;
         this.title = title;
         this.lang = lang;
-        this.date_created = date_created;
-        this.published = published;
-        this.id_type = id_type;
+        this.dateCreated = date_created;
+        this.idType = idType;
     }
 
-    public Package(String id, String title, String lang, String date_created, String published, String id_type, int enigmaCount, int solvedCount) {
+    public Package(int id, String title, String lang, String date_created, int idType,
+                   int enigmaCount, int solvedCount) {
         this.id = id;
         this.title = title;
         this.lang = lang;
-        this.date_created = date_created;
-        this.published = published;
-        this.id_type = id_type;
+        this.dateCreated = date_created;
+        this.idType = idType;
         this.enigmaCount = enigmaCount;
         this.solvedCount = solvedCount;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -49,36 +48,17 @@ public class Package {
         this.lang = lang;
     }
 
-    public String getDate_created() {
-        return date_created;
+    public String getDateCreated() {return dateCreated;}
+
+    public void setDateCreated(String date_created) {this.dateCreated = date_created;}
+
+    public int getIdType() {
+        return idType;
     }
 
-    public void setDate_created(String date_created) {
-        this.date_created = date_created;
+    public void setIdType(int id_type) {
+        this.idType = id_type;
     }
-
-    public String getPublished() {
-        return published;
-    }
-
-    public void setPublished(String published) {
-        this.published = published;
-    }
-
-    public String getIdType() {
-        return id_type;
-    }
-
-    public void setIdType(String id_type) {
-        this.id_type = id_type;
-    }
-
-    private String id;
-    private String title;
-    private String lang;
-    private String date_created;
-    private String published;
-    private String id_type;
 
     public int getEnigmaCount() {
         return enigmaCount;
@@ -96,6 +76,24 @@ public class Package {
         this.solvedCount = solvedCount;
     }
 
+
+    private int id;
+    private String title;
+    private String lang;
+    private int idType;
+    private String dateCreated;
     private int enigmaCount;
     private int solvedCount;
+
+
+    //Packages table contract
+    public static final String TABLE_NAME = "packages";
+
+    public static final String COLUMN_NAME_ID = "id";
+    public static final String COLUMN_NAME_TITLE = "title";
+    public static final String COLUMN_NAME_LANG = "lang";
+    public static final String COLUMN_NAME_ID_TYPE = "idType";
+    public static final String COLUMN_NAME_DATE_CREATED = "dateCreated";
+    public static final String COLUMN_NAME_ENIGMA_COUNT = "enigmaCount";
+    public static final String COLUMN_NAME_SOLVED_COUNT = "solvedCount";
 }

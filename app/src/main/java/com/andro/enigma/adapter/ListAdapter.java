@@ -46,6 +46,7 @@ public class ListAdapter extends ArrayAdapter<Package> {
         if (c != null) {
             while(c.moveToNext()) {
                 idList[c.getPosition()] = c.getInt(0);
+                Log.d("CURSOR","idList " + c.getPosition() + " " + c.getInt(0));
             }
             c.close();
         }
@@ -81,14 +82,15 @@ public class ListAdapter extends ArrayAdapter<Package> {
                 textTitle.setText(p.getTitle());
             }
             if (textPrice != null) {
-                textPrice.setText("5" + "\u20ac");
+                String priceText = String.format("%d %s", 5, "\u20ac");
+                textPrice.setText(priceText);
             }
             if (textNumber != null){
-                String headerText = String.format("%s %s", p.getEnigmaCount(), context.getResources().getString(R.string.enigmas_text));
-                textNumber.setText(headerText);
+                String numberText = String.format("%d %s", p.getEnigmaCount(), context.getResources().getString(R.string.enigmas_text));
+                textNumber.setText(numberText);
             }
             try {
-                if(Helper.contains(idList,Integer.parseInt(p.getId()))){
+                if(Helper.contains(idList,p.getId())){
                     imageTick.setImageResource(R.mipmap.checked);
                 }
             }catch (NullPointerException ex){

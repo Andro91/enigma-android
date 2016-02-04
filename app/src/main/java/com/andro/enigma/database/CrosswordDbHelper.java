@@ -29,17 +29,20 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
                     " )";
 
     private static final String SQL_CREATE_PACKAGE_TABLE =
-            "CREATE TABLE packages (" +
-                    " id INTEGER PRIMARY KEY, " +
-                    " id_type INTEGER, " +
-                    " lang TEXT, " +
-                    " title TEXT ) ";
+            "CREATE TABLE " + Package.TABLE_NAME + " ( " +
+                    Package.COLUMN_NAME_ID + " INTEGER PRIMARY KEY, " +
+                    Package.COLUMN_NAME_TITLE + " TEXT, " +
+                    Package.COLUMN_NAME_LANG + " TEXT, " +
+                    Package.COLUMN_NAME_ID_TYPE + " TEXT, " +
+                    Package.COLUMN_NAME_DATE_CREATED + " TEXT, " +
+                    Package.COLUMN_NAME_ENIGMA_COUNT + " INTEGER, " +
+                    Package.COLUMN_NAME_SOLVED_COUNT + " INTEGER ) ";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + CrosswordEntry.TABLE_NAME;
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 5;
     public static final String DATABASE_NAME = "CrosswordDB.db";
 
     public CrosswordDbHelper(Context context) {
@@ -96,14 +99,17 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("id", p.getId());
-        values.put("id_type", p.getIdType());
-        values.put("lang", p.getLang());
-        values.put("title", p.getTitle());
+        values.put(Package.COLUMN_NAME_ID, p.getId());
+        values.put(Package.COLUMN_NAME_TITLE, p.getTitle());
+        values.put(Package.COLUMN_NAME_LANG, p.getLang());
+        values.put(Package.COLUMN_NAME_ID_TYPE, p.getIdType());
+        values.put(Package.COLUMN_NAME_DATE_CREATED, p.getDateCreated());
+        values.put(Package.COLUMN_NAME_ENIGMA_COUNT, p.getIdType());
+        values.put(Package.COLUMN_NAME_SOLVED_COUNT, p.getIdType());
 
         long newRowId;
         newRowId = db.insert(
-                "packages",
+                Package.TABLE_NAME,
                 null,
                 values);
 
@@ -166,7 +172,7 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor c = db.rawQuery("SELECT * FROM packages WHERE lang LIKE '" + locale + "'", null);
+        Cursor c = db.rawQuery("SELECT * FROM " + Package.TABLE_NAME + " WHERE lang LIKE '" + locale + "'", null);
 
         return c;
     }
@@ -182,12 +188,29 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
         newRowId = db.update(
                 CrosswordContract.CrosswordEntry.TABLE_NAME,
                 values,
-                CrosswordEntry.COLUMN_NAME_CROSSWORD_NUMBER + " = " + crosswordNumber + " AND " + CrosswordEntry.COLUMN_NAME_LOCALE + " LIKE " + "'"+ locale +"'",
+                CrosswordEntry.COLUMN_NAME_CROSSWORD_NUMBER + " = " + crosswordNumber + " AND " + CrosswordEntry.COLUMN_NAME_LOCALE + " LIKE " + "'" + locale + "'",
                 null);
 
         db.close();
         return newRowId;
     }
 
+
+    public long updatePackageSolved(int packageId, int numberSolved) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(Package.COLUMN_NAME_SOLVED_COUNT, numberSolved);
+
+        long newRowId;
+        newRowId = db.update(
+                Package.TABLE_NAME,
+                values,
+                Package.COLUMN_NAME_ID + " = " + packageId,
+                null);
+
+        db.close();
+        return newRowId;
+    }
 
 }

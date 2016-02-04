@@ -53,10 +53,13 @@ public class SelectPackage extends Activity {
         if (c != null) {
             while(c.moveToNext()) {
                 int packageId = c.getInt(0);
-                int type = c.getInt(1);
+                String packageTitle = c.getString(1);
                 String lang = c.getString(2);
-                String packageTitle = c.getString(3);
-                pack = new Package(""+packageId,packageTitle,lang,"","",""+type);
+                int type = c.getInt(3);
+                String date = c.getString(4);
+                int count = c.getInt(5);
+                int solved = c.getInt(6);
+                pack = new Package(packageId,packageTitle,lang,date,type,count,solved);
                 packageList.add(pack);
             }
             c.close();

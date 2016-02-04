@@ -69,7 +69,7 @@ public class ListSelectPackageAdapter extends ArrayAdapter<Package> {
                // textPrice.setText("5$");
             }
             if (textNumber != null){
-                String headerText = String.format("%s %s", p.getEnigmaCount(), context.getResources().getString(R.string.enigmas_text));
+                String headerText = String.format("%d %s", p.getEnigmaCount(), context.getResources().getString(R.string.enigmas_text));
                 textNumber.setText(headerText);
             }
             try {

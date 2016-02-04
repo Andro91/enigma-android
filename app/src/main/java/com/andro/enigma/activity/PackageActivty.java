@@ -37,11 +37,12 @@ public class PackageActivty extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_package_activty);
 
-        String languageToLoad  = PreferenceManager.getDefaultSharedPreferences(this).getString("listPref", "sr_RS");
-        lang = languageToLoad.split("_",2)[0];
-        lv = (ListView) findViewById(R.id.listView);
-
-        new JSONParse().execute();
+//        String languageToLoad  = PreferenceManager.getDefaultSharedPreferences(this)
+//                .getString("listPref", "sr_RS");
+//        lang = languageToLoad.split("_",2)[0];
+//        lv = (ListView) findViewById(R.id.listView);
+//
+//        new JSONParse().execute();
 
     }
 
@@ -49,13 +50,18 @@ public class PackageActivty extends Activity {
     protected void onResume() {
         super.onResume();
         setLocale();
+        String languageToLoad  = PreferenceManager.getDefaultSharedPreferences(this)
+                .getString("listPref", "sr_RS");
+        lang = languageToLoad.split("_",2)[0];
+        lv = (ListView) findViewById(R.id.listView);
+        new JSONParse().execute();
         //lv.invalidate();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        finish();
+        //finish();
     }
 
     public void setLocale() {
@@ -124,18 +130,17 @@ public class PackageActivty extends Activity {
 
                 try {
                     JSONObject obj = result.getJSONObject(i);
-                    Log.d("MYTAG","Title = " + obj.getString("title"));
+                    Log.d("MYTAG", "Title = " + obj.getString("title"));
 
-                    String id = obj.getString("id");
+                    int id = Integer.parseInt(obj.getString("id"));
                     String title = obj.getString("title");
                     String lang = obj.getString("lang");
                     String dateCreated = obj.getString("date_created");
-                    String published = obj.getString("published");
-                    String idType = obj.getString("id_type");
+                    int idType = Integer.parseInt(obj.getString("id_type"));
                     int enigmaCount = 10;
                     int solvedCount = 0;
 
-                    pack = new Package(id,title,lang,dateCreated,published,idType, enigmaCount, solvedCount);
+                    pack = new Package(id,title,lang,dateCreated,idType, enigmaCount, solvedCount);
 
                 }catch (JSONException ex){
                     Log.d("MYTAG", "JSONException " + ex.getMessage());

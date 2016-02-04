@@ -35,10 +35,10 @@ public class GetPackageActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_package);
 
-        packageId = Integer.parseInt(getIntent().getStringExtra("id"));
+        packageId = getIntent().getIntExtra("id", 0);
         packageTitle = getIntent().getStringExtra("title");
         lang = getIntent().getStringExtra("lang");
-        type = Integer.parseInt(getIntent().getStringExtra("type"));
+        type = getIntent().getIntExtra("type", 0);
 
         mDbHelper = new CrosswordDbHelper(GetPackageActivity.this);
 
@@ -94,7 +94,7 @@ public class GetPackageActivity extends Activity {
                 Log.d("MYTAG", "" + e.getMessage());
             }
 
-            Package p = new Package(""+packageId,packageTitle,lang,"","",""+type);
+            Package p = new Package(packageId,packageTitle,lang,"",type);
 
             mDbHelper.addPackage(p);
 
