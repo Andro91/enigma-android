@@ -37,5 +37,8 @@
     <string name="download_done">Preuzimanje završeno.</string>
     <string name="enigmas_text">enigmi</string>
     <string name="download">Preuzimanje...</string>
+    <string name="purchase_success">Kupovina uspešna!</string>
+    <string name="purchase_cancel">Kupovina otkazana.</string>
+    <string name="purchase_error">Greška!</string>
 
 </resources>

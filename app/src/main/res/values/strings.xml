@@ -36,5 +36,8 @@
     <string name="download_done">Download complete.</string>
     <string name="enigmas_text">enigmas</string>
     <string name="download">Downloading...</string>
+    <string name="purchase_success">Purchase successful!</string>
+    <string name="purchase_cancel">Purchase cancelled.</string>
+    <string name="purchase_error">Purchase error!</string>
 
 </resources>

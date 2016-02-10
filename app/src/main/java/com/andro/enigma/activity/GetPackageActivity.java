@@ -82,8 +82,6 @@ public class GetPackageActivity extends Activity {
                 intent.putExtra(PaymentActivity.EXTRA_PAYMENT, thingToBuy);
                 intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
                 startActivityForResult(intent, Helper.REQUEST_CODE_PAYMENT);
-
-                //new JSONParse().execute();
             }
         });
 
@@ -96,46 +94,13 @@ public class GetPackageActivity extends Activity {
                 PaymentConfirmation confirm = data
                         .getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
                 if (confirm != null) {
-                    try {
-                        System.out.println(confirm.toJSONObject().toString(4));
-                        System.out.println(confirm.getPayment().toJSONObject()
-                                .toString(4));
-                        Toast.makeText(getApplicationContext(), "Order placed",
-                                Toast.LENGTH_LONG).show();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                        new JSONParse().execute();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.purchase_success), Toast.LENGTH_SHORT).show();
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
-                System.out.println("The user canceled.");
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.purchase_cancel), Toast.LENGTH_LONG).show();
             } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
-                System.out
-                        .println("An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
-            }
-        } else if (requestCode == Helper.REQUEST_CODE_FUTURE_PAYMENT) {
-            if (resultCode == Activity.RESULT_OK) {
-                PayPalAuthorization auth = data
-                        .getParcelableExtra(PayPalFuturePaymentActivity.EXTRA_RESULT_AUTHORIZATION);
-                if (auth != null) {
-                    try {
-                        Log.i("FuturePaymentExample", auth.toJSONObject()
-                                .toString(4));
-                        String authorization_code = auth.getAuthorizationCode();
-                        Log.i("FuturePaymentExample", authorization_code);
-                        sendAuthorizationToServer(auth);
-                        Toast.makeText(getApplicationContext(),
-                                "Future Payment code received from PayPal",
-                                Toast.LENGTH_LONG).show();
-                    } catch (JSONException e) {
-                        Log.e("FuturePaymentExample",
-                                "an extremely unlikely failure occurred: ", e);
-                    }
-                }
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                Log.i("FuturePaymentExample", "The user canceled.");
-            } else if (resultCode == PayPalFuturePaymentActivity.RESULT_EXTRAS_INVALID) {
-                Log.i("FuturePaymentExample",
-                        "Probably the attempt to previously start the PayPalService had an invalid PayPalConfiguration. Please see the docs.");
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.purchase_error), Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -201,7 +166,7 @@ public class GetPackageActivity extends Activity {
                             obj.getString("words"),
                             "NO",
                             "0",
-                            "en"
+                            lang
                     );
                 }catch (JSONException ex){
                     Log.d("MYTAG", "JSONException " + ex.getMessage());
@@ -211,6 +176,8 @@ public class GetPackageActivity extends Activity {
             }
             ((TextView) findViewById(R.id.textView_package_done)).setText(R.string.download_done);
             findViewById(R.id.progressBar2).setVisibility(View.GONE);
+
+            mDbHelper.close();
         }
     }
 
