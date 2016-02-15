@@ -32,17 +32,21 @@ public class ListAdapter extends ArrayAdapter<Package> {
     private ArrayList<Package> data = new ArrayList<>();
     private int[] idList;
     private CrosswordDbHelper db;
+    private int packageType;
 
     public ListAdapter(Context context, int layoutResourceId,
-                       ArrayList<Package> data) {
+                       ArrayList<Package> data, int packageType) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
         this.data = data;
+        this.packageType = packageType;
         db = new CrosswordDbHelper(context);
 
-        Cursor c = db.getAllPackages(Helper.getLocale(context));
+        Cursor c = db.getAllPackages(Helper.getLocale(context), packageType);
+
         idList = new int[c.getCount()];
+
         if (c != null) {
             while(c.moveToNext()) {
                 idList[c.getPosition()] = c.getInt(0);
@@ -55,7 +59,6 @@ public class ListAdapter extends ArrayAdapter<Package> {
 
     @Override
     public int getCount() {
-
         return this.data.size();
     }
 
@@ -82,7 +85,7 @@ public class ListAdapter extends ArrayAdapter<Package> {
                 textTitle.setText(p.getTitle());
             }
             if (textPrice != null) {
-                String priceText = String.format("%d %s", 5, "\u20ac");
+                String priceText = String.format("%s %s", p.getPrice(), "\u20ac");
                 textPrice.setText(priceText);
             }
             if (textNumber != null){
@@ -90,7 +93,7 @@ public class ListAdapter extends ArrayAdapter<Package> {
                 textNumber.setText(numberText);
             }
             try {
-                if(Helper.contains(idList,p.getId())){
+                if(p.getPurchased() == 1){
                     imageTick.setImageResource(R.mipmap.checked);
                 }
             }catch (NullPointerException ex){
@@ -111,6 +114,8 @@ public class ListAdapter extends ArrayAdapter<Package> {
                 intent.putExtra("title", data.get(position).getTitle());
                 intent.putExtra("lang", data.get(position).getLang());
                 intent.putExtra("type", data.get(position).getIdType());
+                intent.putExtra("price", data.get(position).getPrice());
+                intent.putExtra("count", data.get(position).getEnigmaCount());
 
                 context.startActivity(intent);
             }

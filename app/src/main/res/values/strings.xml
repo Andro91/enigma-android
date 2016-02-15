@@ -39,5 +39,11 @@
     <string name="purchase_success">Purchase successful!</string>
     <string name="purchase_cancel">Purchase cancelled.</string>
     <string name="purchase_error">Purchase error!</string>
+    <string name="title_activity_package_type">PackageTypeActivity</string>
+    <string name="english" translatable="false">English</string>
+    <string name="serbian" translatable="false">Srpski</string>
+    <string name="select_package_type">Select package type</string>
+    <string name="select_type">Select type</string>
+    <string name="filter_packages">Filter packages</string>
 
 </resources>

@@ -39,6 +39,8 @@ public class GetPackageActivity extends Activity {
     private String packageTitle;
     private int type;
     private String lang;
+    private double price;
+    private int count;
     CrosswordDbHelper mDbHelper;
     Button button;
     PayPalPayment thingToBuy;
@@ -59,23 +61,28 @@ public class GetPackageActivity extends Activity {
         packageId = getIntent().getIntExtra("id", 0);
         packageTitle = getIntent().getStringExtra("title");
         lang = getIntent().getStringExtra("lang");
-        type = getIntent().getIntExtra("type", 0);
+        type = getIntent().getIntExtra("type", 1);
+        price = getIntent().getDoubleExtra("price", 1.0);
+        count = getIntent().getIntExtra("count", 10);
 
         mDbHelper = new CrosswordDbHelper(GetPackageActivity.this);
 
         TextView title = (TextView) findViewById(R.id.textView_package_title);
-
+        TextView txtPrice = (TextView) findViewById(R.id.textView_package_price);
+        TextView txtEnigmaNumber = (TextView) findViewById(R.id.textView_package_number);
 
         button = (Button) findViewById(R.id.button_get_package);
 
         title.setText(packageTitle);
+        txtPrice.setText(String.format("%s %s", price, "\u20ac"));
+        txtEnigmaNumber.setText(String.format("%d %s", count, getResources().getString(R.string.enigmas_text)));
 
-        button.setOnClickListener(new View.OnClickListener(){
+        button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                thingToBuy = new PayPalPayment(new BigDecimal("5"), "USD",
-                        "Enigma package: " +  packageTitle , PayPalPayment.PAYMENT_INTENT_SALE);
+                thingToBuy = new PayPalPayment(new BigDecimal("" + price), "EUR",
+                        "Enigma package: " + packageTitle, PayPalPayment.PAYMENT_INTENT_SALE);
 
                 Intent intent = new Intent(GetPackageActivity.this, PaymentActivity.class);
 
@@ -96,6 +103,7 @@ public class GetPackageActivity extends Activity {
                 if (confirm != null) {
                         new JSONParse().execute();
                         Toast.makeText(getApplicationContext(), getResources().getString(R.string.purchase_success), Toast.LENGTH_SHORT).show();
+                    Log.d("MYTAG", confirm.getProofOfPayment().getPaymentId());
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.purchase_cancel), Toast.LENGTH_LONG).show();
@@ -131,10 +139,7 @@ public class GetPackageActivity extends Activity {
         @Override
         protected JSONObject doInBackground(String... args) {
             JsonParser jsonParser = new JsonParser();
-
-            JSONObject json = jsonParser.getJSONFromUrl(Helper.HOME_URL + "/service/getenigmasforpackage?seckey=EnIgmAAEIOU&id=" + packageId + "&user=13");
-
-            return json;
+            return jsonParser.getJSONFromUrl(Helper.HOME_URL + "/service/getenigmasforpackage?seckey=EnIgmAAEIOU&package_id=" + packageId + "&user_id=1");
         }
 
         @Override

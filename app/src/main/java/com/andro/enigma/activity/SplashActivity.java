@@ -5,14 +5,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.andro.enigma.R;
-import com.andro.enigma.database.Crossword;
-import com.andro.enigma.database.CrosswordDbHelper;
+import com.andro.enigma.database.*;
+import com.andro.enigma.database.Package;
+import com.andro.enigma.helper.Helper;
+import com.andro.enigma.parser.JsonParser;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -26,24 +38,22 @@ public class SplashActivity extends Activity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         boolean firstTime = sharedPreferences.getBoolean("firstTime",true);
 
-        Thread thread =  new Thread(){
-            @Override
-            public void run(){
-                try {
-                    synchronized (this){
-                        wait(2000);
-                    }
-                }
-                catch(InterruptedException ex){
-                    ex.getMessage();
-                }
-                finally {
-                    setLocale();
-                    Intent i = new Intent(SplashActivity.this, MainMenuActivity.class);
-                    startActivity(i);
-                }
-            }
-        };
+//        Thread thread =  new Thread(){
+//            @Override
+//            public void run(){
+//                try {
+//                    synchronized (this){
+//                        wait(2000);
+//                    }
+//                }
+//                catch(InterruptedException ex){
+//                    ex.getMessage();
+//                }
+//                finally {
+//
+//                }
+//            }
+//        };
 
         if(firstTime){
 
@@ -111,7 +121,12 @@ public class SplashActivity extends Activity {
     //        mDbHelper.addCrossword(nine_en);
     //        mDbHelper.addCrossword(ten_en);
         }
-        thread.start();
+        //thread.start();
+        new JSONParse().execute();
+
+        setLocale();
+        Intent i = new Intent(SplashActivity.this, MainMenuActivity.class);
+        startActivity(i);
     }
 
 
@@ -131,5 +146,39 @@ public class SplashActivity extends Activity {
         Configuration config = new Configuration();
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+    }
+
+    private class JSONParse extends AsyncTask<String, String, JSONArray> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected JSONArray doInBackground(String... args) {
+            JsonParser jsonParser = new JsonParser();
+            return jsonParser.getJSONArrayFromUrl(Helper.HOME_URL + Helper.PACKAGE_TYPES_URL);
+        }
+
+        @Override
+        protected void onPostExecute(JSONArray result) {
+            super.onPostExecute(result);
+            List<PackageType> typeList = new ArrayList<>();
+            for (int i = 0; i < result.length(); i++){
+                JSONObject jo;
+                PackageType packageType = null;
+                try {
+                    jo = result.getJSONObject(i);
+                    packageType = new PackageType(jo.getInt("id"), jo.getString("name"), jo.getInt("size"), jo.getDouble("price"));
+                    Log.d("MYTAG",jo.getString("name"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    typeList.add(i,packageType);
+                }
+            }
+            Helper.typeList = typeList;
+
+        }
     }
 }

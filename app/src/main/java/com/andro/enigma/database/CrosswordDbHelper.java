@@ -36,7 +36,9 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
                     Package.COLUMN_NAME_ID_TYPE + " TEXT, " +
                     Package.COLUMN_NAME_DATE_CREATED + " TEXT, " +
                     Package.COLUMN_NAME_ENIGMA_COUNT + " INTEGER, " +
-                    Package.COLUMN_NAME_SOLVED_COUNT + " INTEGER ) ";
+                    Package.COLUMN_NAME_SOLVED_COUNT + " INTEGER, " +
+                    Package.COLUMN_NAME_PURCHASED + " INTEGER, " +
+                    Package.COLUMN_NAME_PRICE + " REAL )";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + CrosswordEntry.TABLE_NAME;
@@ -106,6 +108,8 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
         values.put(Package.COLUMN_NAME_DATE_CREATED, p.getDateCreated());
         values.put(Package.COLUMN_NAME_ENIGMA_COUNT, p.getIdType());
         values.put(Package.COLUMN_NAME_SOLVED_COUNT, p.getIdType());
+        values.put(Package.COLUMN_NAME_PURCHASED, p.getPurchased());
+        values.put(Package.COLUMN_NAME_PRICE, p.getPrice());
 
         long newRowId;
         newRowId = db.insert(
@@ -168,11 +172,13 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
         return c;
     }
 
-    public Cursor getAllPackages(String locale) {
+    public Cursor getAllPackages(String locale, int type) {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor c = db.rawQuery("SELECT * FROM " + Package.TABLE_NAME + " WHERE lang LIKE '" + locale + "'", null);
+        Log.d("MYTAG", "SELECT * FROM " + Package.TABLE_NAME + " WHERE " + Package.COLUMN_NAME_LANG + " LIKE '" + locale + "' AND " + Package.COLUMN_NAME_ID_TYPE + " = " + type);
+
+        Cursor c = db.rawQuery("SELECT * FROM " + Package.TABLE_NAME + " WHERE " + Package.COLUMN_NAME_LANG + " LIKE '" + locale + "' AND " + Package.COLUMN_NAME_ID_TYPE + " = " + type, null);
 
         return c;
     }

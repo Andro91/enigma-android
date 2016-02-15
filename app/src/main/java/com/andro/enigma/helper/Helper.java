@@ -3,10 +3,21 @@ package com.andro.enigma.helper;
 import android.content.Context;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.widget.TextView;
 
+import com.andro.enigma.R;
+import com.andro.enigma.database.PackageType;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Internet on 28-Jan-16.
@@ -14,6 +25,7 @@ import java.util.HashMap;
 public class Helper {
 
     public static final String HOME_URL = "http://www.develop.enigma-aeiou.net";
+    public static final String PACKAGE_TYPES_URL = "/service/getpackagetypes?seckey=EnIgmAAEIOU";
 
     //PayPal configuration
 
@@ -31,6 +43,7 @@ public class Helper {
                 .merchantUserAgreementUri(Uri.parse("https://www.example.com/legal"));
 
 
+    public static List<PackageType> typeList;
 
     public  HashMap<String, String> charMap;
 
@@ -61,6 +74,50 @@ public class Helper {
             return "en";
         }
     }
+
+    public static void inicActionBarDrawer(Context context, String title) {
+        try{
+            AppCompatActivity activity = ((AppCompatActivity) context);
+            Toolbar toolbar = (Toolbar) ((AppCompatActivity) context).findViewById(R.id.toolbar);
+            TextView toolbarTitle = ((TextView) toolbar.findViewById(R.id.toolbar_title));
+            ActionBarDrawerToggle actionBarDrawerToggle;
+            DrawerLayout drawerLayout;
+            drawerLayout = (DrawerLayout) activity.findViewById(R.id.navigation_drawer);
+
+            toolbarTitle.setText(title);
+            activity.setSupportActionBar(toolbar);
+            ActionBar actionBar = activity.getSupportActionBar();
+
+            actionBarDrawerToggle = new ActionBarDrawerToggle(activity,drawerLayout,toolbar,R.string.app_name,R.string.app_name);
+            drawerLayout.setDrawerListener(actionBarDrawerToggle);
+
+            assert actionBar != null;
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setHomeAsUpIndicator(R.mipmap.ic_menu_white);
+
+        }catch(Exception ex){
+            Log.d("MYERROR", "ActionBar error: " + ex.getMessage());
+        }
+    }
+
+    public static void inicActionBarUp(Context context, String title) {
+        try{
+            Toolbar toolbar = null;
+            if(((AppCompatActivity) context).findViewById(R.id.toolbar) != null){
+                toolbar = (Toolbar) ((AppCompatActivity) context).findViewById(R.id.toolbar);
+                ((TextView)toolbar.findViewById(R.id.toolbar_title)).setText(title);
+            }else{
+                Log.d("MYTAG", "Null toolbar");
+            }
+            ((AppCompatActivity) context).setSupportActionBar(toolbar);
+            ((AppCompatActivity) context).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            ((AppCompatActivity) context).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }catch(Exception ex){
+            Log.d("MYERROR", "ActionBar error: " + ex.getMessage());
+        }
+    }
+
 
 
 }

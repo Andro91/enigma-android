@@ -14,7 +14,7 @@ public class Package {
     }
 
     public Package(int id, String title, String lang, String date_created, int idType,
-                   int enigmaCount, int solvedCount) {
+                   int enigmaCount, int solvedCount, int purchased, double price) {
         this.id = id;
         this.title = title;
         this.lang = lang;
@@ -22,6 +22,8 @@ public class Package {
         this.idType = idType;
         this.enigmaCount = enigmaCount;
         this.solvedCount = solvedCount;
+        this.purchased = purchased;
+        this.price = price;
     }
 
     public int getId() {
@@ -76,6 +78,13 @@ public class Package {
         this.solvedCount = solvedCount;
     }
 
+    public int getPurchased() {
+        return purchased;
+    }
+
+    public void setPurchased(int purchased) {
+        this.purchased = purchased;
+    }
 
     private int id;
     private String title;
@@ -84,6 +93,8 @@ public class Package {
     private String dateCreated;
     private int enigmaCount;
     private int solvedCount;
+    private int purchased;
+    private double price;
 
 
     //Packages table contract
@@ -96,4 +107,15 @@ public class Package {
     public static final String COLUMN_NAME_DATE_CREATED = "dateCreated";
     public static final String COLUMN_NAME_ENIGMA_COUNT = "enigmaCount";
     public static final String COLUMN_NAME_SOLVED_COUNT = "solvedCount";
+    public static final String COLUMN_NAME_PURCHASED = "purchased";
+    public static final String COLUMN_NAME_PRICE = "price";
+
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 }
