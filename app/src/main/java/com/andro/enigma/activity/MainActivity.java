@@ -34,7 +34,7 @@ import com.andro.enigma.settings.MySettings;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
 
     private EditText[] crossword;
@@ -42,6 +42,7 @@ public class MainActivity extends Activity {
     private TextView crosswordRecordTimeTV;
     private char[] letters;
     private int crosswordNumber;
+    private int enigmaId;
     private int packageId;
     private String currentLocale;
     private String excludeString = "AEIOU";
@@ -98,6 +99,7 @@ public class MainActivity extends Activity {
 
         crosswordNumber = getIntent().getIntExtra("crosswordNumber",1);
         packageId = getIntent().getIntExtra("id",0);
+        Log.d("MYTAG","package ID = " + packageId);
 
         crosswordNumberTV = (TextView) findViewById(R.id.text_crossword_number);
         crosswordRecordTimeTV = (TextView) findViewById(R.id.text_record_time);
@@ -166,6 +168,7 @@ public class MainActivity extends Activity {
             getField(i).addTextChangedListener(myTextChanged);
         }
 
+        Helper.inicActionBarUp(this,getResources().getString(R.string.app_name));
         //initializeCrossword(crosswordNumber);
     }
 
@@ -182,8 +185,8 @@ public class MainActivity extends Activity {
         myChrono.stop();
         Context context = getApplicationContext();
         CrosswordDbHelper mDbHelper = new CrosswordDbHelper(context);
-        mDbHelper.updateCrosswordTime(getCrosswordNumber(), myChrono.getText().toString(), getLocale());
-        Toast.makeText(getApplicationContext(), getResources().getString(R.string.congratulations) + " " + myChrono.getText(), Toast.LENGTH_SHORT).show();
+        mDbHelper.updateCrosswordTime(enigmaId, myChrono.getText().toString(), getLocale());
+        Toast.makeText(getApplicationContext(), getResources().getString(R.string.congratulations) + " " + getResources().getString(R.string.current_time) + " " + myChrono.getText(), Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -213,10 +216,12 @@ public class MainActivity extends Activity {
 //        }
 
         assert c != null;
+        Log.d("MYTAG","cursor xount "+c.getCount());
         c.moveToPosition(crosswordNumber-1);
 
         String inputString = c.getString(c.getColumnIndexOrThrow(CrosswordContract.CrosswordEntry.COLUMN_NAME_TEXT));
         String recordTime = c.getString(c.getColumnIndexOrThrow(CrosswordContract.CrosswordEntry.COLUMN_NAME_TIME));
+        enigmaId = c.getInt(c.getColumnIndexOrThrow(CrosswordContract.CrosswordEntry.COLUMN_NAME_ID));
 
         char[] charArray = inputString.toCharArray();
         setLetters(charArray);
@@ -277,7 +282,13 @@ public class MainActivity extends Activity {
     public void setLocale() {
         SharedPreferences shpref = PreferenceManager.getDefaultSharedPreferences(this);
         String languageToLoad  = shpref.getString("listPref", "sr_RS");
-        Locale locale = new Locale(languageToLoad.split("_",2)[0],languageToLoad.split("_",2)[1]);
+        Locale locale;
+        try {
+            locale = new Locale(languageToLoad.split("_", 2)[0], languageToLoad.split("_", 2)[1]);
+        }catch (ArrayIndexOutOfBoundsException arex){
+            Log.d("MYTAG",arex.getMessage());
+            locale = new Locale("en", "US");
+        }
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;
@@ -293,6 +304,8 @@ public class MainActivity extends Activity {
         ((TextView)findViewById(R.id.label_enigma_number)).setText(getResources().getString(R.string.crossword_number));
         currentLocale = languageToLoad;
     }
+
+
 
     @Override
     protected void onPause() {
@@ -327,6 +340,9 @@ public class MainActivity extends Activity {
         else if(id == R.id.action_about){
             Intent ab = new Intent(MainActivity.this, AboutActivity.class);
             startActivity(ab);
+        }
+        else if(id == android.R.id.home) {
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

@@ -70,9 +70,7 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
     public long addCrossword(Crossword c) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        Log.d("ADD", "ID " + c.ID + " packageID " + c.packageId);
-
-
+        //Log.d("ADD", "ID " + c.ID + " packageID " + c.packageId);
         ContentValues values = new ContentValues();
         values.put(CrosswordEntry.COLUMN_NAME_ID, c.ID);
         values.put(CrosswordEntry.COLUMN_NAME_CROSSWORD_NUMBER, c.crosswordNumber);
@@ -106,8 +104,8 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
         values.put(Package.COLUMN_NAME_LANG, p.getLang());
         values.put(Package.COLUMN_NAME_ID_TYPE, p.getIdType());
         values.put(Package.COLUMN_NAME_DATE_CREATED, p.getDateCreated());
-        values.put(Package.COLUMN_NAME_ENIGMA_COUNT, p.getIdType());
-        values.put(Package.COLUMN_NAME_SOLVED_COUNT, p.getIdType());
+        values.put(Package.COLUMN_NAME_ENIGMA_COUNT, p.getEnigmaCount());
+        values.put(Package.COLUMN_NAME_SOLVED_COUNT, p.getSolvedCount());
         values.put(Package.COLUMN_NAME_PURCHASED, p.getPurchased());
         values.put(Package.COLUMN_NAME_PRICE, p.getPrice());
 
@@ -168,6 +166,7 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor c = db.rawQuery("SELECT * FROM crosswords WHERE packageId = " + packageId, null);
+        Log.d("MYTAG", "SELECT * FROM crosswords WHERE packageId = " + packageId);
 
         return c;
     }
@@ -183,7 +182,7 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
         return c;
     }
 
-    public long updateCrosswordTime(int crosswordNumber, String time, String locale) {
+    public long updateCrosswordTime(int crosswordId, String time, String locale) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -194,7 +193,7 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
         newRowId = db.update(
                 CrosswordContract.CrosswordEntry.TABLE_NAME,
                 values,
-                CrosswordEntry.COLUMN_NAME_CROSSWORD_NUMBER + " = " + crosswordNumber + " AND " + CrosswordEntry.COLUMN_NAME_LOCALE + " LIKE " + "'" + locale + "'",
+                CrosswordEntry.COLUMN_NAME_ID + " = " + crosswordId,
                 null);
 
         db.close();

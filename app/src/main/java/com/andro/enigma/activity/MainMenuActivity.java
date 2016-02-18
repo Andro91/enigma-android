@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -72,7 +73,13 @@ public class MainMenuActivity extends Activity {
     public void setLocale() {
         SharedPreferences shpref = PreferenceManager.getDefaultSharedPreferences(this);
         String languageToLoad  = shpref.getString("listPref", "sr_RS");
-        Locale locale = new Locale(languageToLoad.split("_",2)[0],languageToLoad.split("_",2)[1]);
+        Locale locale;
+        try {
+            locale = new Locale(languageToLoad.split("_", 2)[0], languageToLoad.split("_", 2)[1]);
+        }catch (ArrayIndexOutOfBoundsException arex){
+            Log.d("MYTAG",arex.getMessage());
+            locale = new Locale("en", "US");
+        }
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;

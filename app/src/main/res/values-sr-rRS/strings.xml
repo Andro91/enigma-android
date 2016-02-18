@@ -43,5 +43,6 @@
     <string name="select_package_type">Odaberite tip paketa</string>
     <string name="select_type">Odaberite tip</string>
     <string name="filter_packages">Filtriranje paketa</string>
+    <string name="purchased_download">Već ste kupili ovaj paket. Možete ga preuzeti za vaš uređaj.</string>
 
 </resources>

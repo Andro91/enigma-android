@@ -61,12 +61,12 @@ public class ListSelectPackageAdapter extends ArrayAdapter<Package> {
             TextView textPrice = (TextView) row.findViewById(R.id.text_list_item_price);
             TextView textNumber = (TextView) row.findViewById(R.id.text_list_item_number);
             ImageView imageTick = (ImageView) row.findViewById(R.id.image_list_item);
-
+            Log.d("COUNT","EnigmaCount = " + p.getEnigmaCount());
             if (textTitle != null) {
                 textTitle.setText(p.getTitle());
             }
             if (textPrice != null) {
-               // textPrice.setText("5$");
+                textPrice.setText("");
             }
             if (textNumber != null){
                 String headerText = String.format("%d %s", p.getEnigmaCount(), context.getResources().getString(R.string.enigmas_text));
@@ -90,6 +90,7 @@ public class ListSelectPackageAdapter extends ArrayAdapter<Package> {
                 Intent intent = new Intent(context, MainActivity.class);
 
                 intent.putExtra("id", data.get(position).getId());
+                Log.d("MYTAG","Intent extra" + data.get(position).getId());
                 intent.putExtra("title", data.get(position).getTitle());
                 intent.putExtra("lang", data.get(position).getLang());
                 intent.putExtra("type", data.get(position).getIdType());

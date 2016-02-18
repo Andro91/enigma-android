@@ -5,21 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.andro.enigma.activity.SelectPackage">
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" >
-    </include>
-    <ListView
-        android:padding="5dp"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listview_select_package"/>
-</LinearLayout>
+        tools:context="com.andro.crossword.PackageActivty">
+
+        <include
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" >
+        </include>
+        <!--<View-->
+            <!--android:id="@id/separator1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="2dp"-->
+            <!--android:background="#d2d2d2"-->
+            <!--android:layout_below="@+id/toolbar"/>-->
+        <!--<View-->
+            <!--android:id="@id/separator2"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="#acacac"-->
+            <!--android:layout_below="@+id/separator1"/>-->
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <ListView
+            android:layout_below="@+id/toolbar"
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/listView"
+            android:layout_alignParentLeft="true" />
+    </RelativeLayout>
 <LinearLayout
     android:id="@+id/left_drawer"
     android:layout_width="200dp"

@@ -38,22 +38,19 @@ public class SplashActivity extends Activity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         boolean firstTime = sharedPreferences.getBoolean("firstTime",true);
 
-//        Thread thread =  new Thread(){
-//            @Override
-//            public void run(){
-//                try {
-//                    synchronized (this){
-//                        wait(2000);
-//                    }
-//                }
-//                catch(InterruptedException ex){
-//                    ex.getMessage();
-//                }
-//                finally {
-//
-//                }
-//            }
-//        };
+        Thread thread =  new Thread(){
+            @Override
+            public void run(){
+                try {
+                    synchronized (this){
+                        wait(1500);
+                    }
+                }
+                catch(InterruptedException ex){
+                    ex.getMessage();
+                }
+            }
+        };
 
         if(firstTime){
 
@@ -121,7 +118,9 @@ public class SplashActivity extends Activity {
     //        mDbHelper.addCrossword(nine_en);
     //        mDbHelper.addCrossword(ten_en);
         }
-        //thread.start();
+
+       // thread.start();
+
         new JSONParse().execute();
 
         setLocale();
@@ -140,8 +139,13 @@ public class SplashActivity extends Activity {
     public void setLocale() {
         SharedPreferences shpref = PreferenceManager.getDefaultSharedPreferences(this);
         String languageToLoad  = shpref.getString("listPref", "sr_RS");
-        Log.d("MYTAG", languageToLoad);
-        Locale locale = new Locale(languageToLoad.split("_",2)[0],languageToLoad.split("_",2)[1]);
+        Locale locale;
+        try {
+            locale = new Locale(languageToLoad.split("_", 2)[0], languageToLoad.split("_", 2)[1]);
+        }catch (ArrayIndexOutOfBoundsException arex){
+            Log.d("MYTAG",arex.getMessage());
+            locale = new Locale("en", "US");
+        }
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;

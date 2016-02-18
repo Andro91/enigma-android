@@ -19,17 +19,20 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.andro.enigma.R;
+import com.andro.enigma.helper.Helper;
 import com.andro.enigma.settings.MySettings;
 
 import java.util.Locale;
 
-public class AboutActivity extends Activity {
+public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         //setLocale();
+
+        Helper.inicActionBarUp(this, getResources().getString(R.string.title_activity_about));
 
         try {
             String versionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
@@ -54,7 +57,13 @@ public class AboutActivity extends Activity {
         boolean languageChanged = false;
         SharedPreferences shpref = PreferenceManager.getDefaultSharedPreferences(this);
         String languageToLoad  = shpref.getString("listPref", "sr_RS");
-        Locale locale = new Locale(languageToLoad.split("_",2)[0],languageToLoad.split("_",2)[1]);
+        Locale locale;
+        try {
+            locale = new Locale(languageToLoad.split("_", 2)[0], languageToLoad.split("_", 2)[1]);
+        }catch (ArrayIndexOutOfBoundsException arex){
+            Log.d("MYTAG",arex.getMessage());
+            locale = new Locale("en", "US");
+        }
         Log.d("languageToLoad", languageToLoad);
         Log.d("default", Locale.getDefault().toString());
         if (!languageToLoad.equals(Locale.getDefault().toString())){
@@ -67,13 +76,8 @@ public class AboutActivity extends Activity {
         Configuration config = new Configuration();
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-        ActionBar actionBar = getActionBar();
-        actionBar.setTitle(R.string.app_name);
+        Helper.inicActionBarUp(this, getResources().getString(R.string.title_activity_about));
         invalidateOptionsMenu();
-        if (languageChanged){
-            recreate();
-        }
-        return;
     }
 
     @Override
@@ -93,6 +97,8 @@ public class AboutActivity extends Activity {
         if(id == R.id.action_settings){
             Intent set = new Intent(AboutActivity.this, MySettings.class);
             startActivity(set);
+        }else if(android.R.id.home == id) {
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

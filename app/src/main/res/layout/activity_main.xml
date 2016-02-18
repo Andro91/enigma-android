@@ -1,206 +1,300 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/root_view"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/label_running_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/current_time"
-            android:layout_marginRight="15dp"/>
-
-        <Chronometer
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/chronometer"
-            android:layout_gravity="center"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="horizontal"
-        android:paddingBottom="5dp">
-        <TextView
-            android:id="@+id/label_record_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/record_time"
-            android:layout_marginRight="15dp"/>
-        <TextView
-            android:id="@+id/text_record_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"/>
-
-    </LinearLayout>
-
-    <TableLayout
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:shrinkColumns="*"
-        android:stretchColumns="*">
+        android:layout_height="wrap_content" />
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal">
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field0" />
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field1" />
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field2" />
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field3" />
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field4"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field5"/>
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field6"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field7"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field8"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field9"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field10"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field11"/>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal">
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field12"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field13"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field14"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field15"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field16"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field17"/>
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal">
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field18"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field19"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field20"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field21"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field22"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field23"/>
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal">
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field24"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field25"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field26"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field27"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field28"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field29"/>
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal">
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field30"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field31"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field32"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field33"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field34"/>
-
-            <EditText style="@style/MyEditTextStyle" android:id="@+id/Field35"/>
-
-        </TableRow>
-
-    </TableLayout>
-
-    <RelativeLayout
+    <ScrollView
+        android:id="@+id/root_view"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp">
-        <Button
-            style="@style/MyButtonStyle"
-            android:id="@+id/button_previous"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/previous"/>
-        <TextView
-            android:id="@+id/label_enigma_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/crossword_number"
-            android:layout_alignTop="@+id/text_crossword_number"
-            android:layout_centerHorizontal="true" />
-        <TextView
-            android:id="@+id/text_crossword_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@+id/label_enigma_number"
-            android:layout_toEndOf="@+id/label_enigma_number" />
-        <Button
-            style="@style/MyButtonStyle"
-            android:id="@+id/button_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/next"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
+        android:layout_height="fill_parent">
 
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/label_running_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:text="@string/current_time" />
+
+                <Chronometer
+                    android:id="@+id/chronometer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:id="@+id/label_record_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:text="@string/record_time" />
+
+                <TextView
+                    android:id="@+id/text_record_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp" />
+
+            </LinearLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:shrinkColumns="*"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
+
+                    <EditText
+                        android:id="@+id/Field0"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field1"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field2"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field3"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field4"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field5"
+                        style="@style/MyEditTextStyle" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/Field6"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field7"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field8"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field9"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field10"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field11"
+                        style="@style/MyEditTextStyle" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
+
+                    <EditText
+                        android:id="@+id/Field12"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field13"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field14"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field15"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field16"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field17"
+                        style="@style/MyEditTextStyle" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
+
+                    <EditText
+                        android:id="@+id/Field18"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field19"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field20"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field21"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field22"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field23"
+                        style="@style/MyEditTextStyle" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
+
+                    <EditText
+                        android:id="@+id/Field24"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field25"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field26"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field27"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field28"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field29"
+                        style="@style/MyEditTextStyle" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
+
+                    <EditText
+                        android:id="@+id/Field30"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field31"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field32"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field33"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field34"
+                        style="@style/MyEditTextStyle" />
+
+                    <EditText
+                        android:id="@+id/Field35"
+                        style="@style/MyEditTextStyle" />
+
+                </TableRow>
+
+            </TableLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp">
+
+                <Button
+                    android:id="@+id/button_previous"
+                    style="@style/MyButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/previous" />
+
+                <TextView
+                    android:id="@+id/label_enigma_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/text_crossword_number"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/crossword_number" />
+
+                <TextView
+                    android:id="@+id/text_crossword_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_toEndOf="@+id/label_enigma_number"
+                    android:layout_toRightOf="@+id/label_enigma_number" />
+
+                <Button
+                    android:id="@+id/button_next"
+                    style="@style/MyButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/next" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
-</ScrollView>

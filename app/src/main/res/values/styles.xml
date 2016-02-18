@@ -1,8 +1,13 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="@android:style/Theme.Light">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+        <item name="colorControlNormal">#FFFFFF</item>
+        <item name="colorControlActivated">#FFFFFF</item>
+        <item name="colorControlHighlight">#30ffffff</item>
     </style>
     <style name="MyEditTextStyle" parent="@android:style/Widget.EditText" >
     <item name="android:maxLength" >1</item>
@@ -23,4 +28,7 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="PopupMenu" parent="@android:style/Widget.Holo.Light.ListPopupWindow">
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_example</item>
+    </style>
 </resources>

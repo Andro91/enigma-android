@@ -94,7 +94,7 @@ public class ListAdapter extends ArrayAdapter<Package> {
             }
             try {
                 if(p.getPurchased() == 1){
-                    imageTick.setImageResource(R.mipmap.checked);
+                    imageTick.setImageResource(R.mipmap.ic_check_black);
                 }
             }catch (NullPointerException ex){
                 Log.d("MYTAG", ex.getMessage());
@@ -116,6 +116,7 @@ public class ListAdapter extends ArrayAdapter<Package> {
                 intent.putExtra("type", data.get(position).getIdType());
                 intent.putExtra("price", data.get(position).getPrice());
                 intent.putExtra("count", data.get(position).getEnigmaCount());
+                intent.putExtra("purchased", data.get(position).getPurchased());
 
                 context.startActivity(intent);
             }

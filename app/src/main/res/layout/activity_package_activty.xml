@@ -18,6 +18,18 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" >
     </include>
+    <!--<View-->
+        <!--android:id="@id/separator1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="2dp"-->
+        <!--android:background="#d2d2d2"-->
+        <!--android:layout_below="@+id/toolbar"/>-->
+    <!--<View-->
+        <!--android:id="@id/separator2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="#acacac"-->
+        <!--android:layout_below="@+id/separator1"/>-->
 
     <ProgressBar
         android:id="@+id/progressBar1"

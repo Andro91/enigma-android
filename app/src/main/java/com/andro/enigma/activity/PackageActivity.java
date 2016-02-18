@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -56,6 +58,9 @@ public class PackageActivity extends AppCompatActivity {
             rdbtn.setTextColor(Color.parseColor("#FFFFFF"));
             ((ViewGroup) findViewById(R.id.radio_group_type)).addView(rdbtn);
         }
+
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar1);
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#5087E1"), PorterDuff.Mode.MULTIPLY);
 
         languageGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -118,8 +123,13 @@ public class PackageActivity extends AppCompatActivity {
     public void setLocale() {
         SharedPreferences shpref = PreferenceManager.getDefaultSharedPreferences(this);
         String languageToLoad  = shpref.getString("listPref", "sr_RS");
-        Log.d("MYTAG","LangToLoad = " + languageToLoad);
-        Locale locale = new Locale(languageToLoad.split("_",2)[0],languageToLoad.split("_",2)[1]);
+        Locale locale;
+        try {
+            locale = new Locale(languageToLoad.split("_", 2)[0], languageToLoad.split("_", 2)[1]);
+        }catch (ArrayIndexOutOfBoundsException arex){
+            Log.d("MYTAG",arex.getMessage());
+            locale = new Locale("en", "US");
+        }
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;
@@ -146,7 +156,9 @@ public class PackageActivity extends AppCompatActivity {
             Intent ab = new Intent(PackageActivity.this, AboutActivity.class);
             startActivity(ab);
         }
-
+        else if(android.R.id.home == id) {
+            finish();
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -163,7 +175,7 @@ public class PackageActivity extends AppCompatActivity {
             JsonParser jsonParser = new JsonParser();
             Log.d("MYTAG","Lang = " + lang);
             JSONArray json = jsonParser.getJSONArrayFromUrl(Helper.HOME_URL + "/service/getpackages?seckey=EnIgmAAEIOU&id_type=" + type + "&lang=" + lang + "&user_id=1");
-            Log.d("MYTAG","URL = " + Helper.HOME_URL + "/service/getpackages?seckey=EnIgmAAEIOU&id_type=" + type + "&lang=" + lang + "&user_id=1");
+            Log.d("MYTAG", "URL = " + Helper.HOME_URL + "/service/getpackages?seckey=EnIgmAAEIOU&id_type=" + type + "&lang=" + lang + "&user_id=1");
             return json;
         }
 

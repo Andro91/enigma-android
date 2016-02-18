@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.app.Activity;
 import android.preference.PreferenceManager;
@@ -15,8 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -35,6 +38,7 @@ import java.util.Locale;
 public class SelectPackage extends AppCompatActivity {
 
     ListView lv;
+    ProgressBar progressBar;
     private String lang = "en";
     private int type = 1;
 
@@ -43,8 +47,8 @@ public class SelectPackage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_package);
 
-        lv = (ListView) findViewById(R.id.listview_select_package);
-
+        lv = (ListView) findViewById(R.id.listView);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar1);
         RadioGroup languageGroup = (RadioGroup) findViewById(R.id.radio_group_lang);
         RadioGroup typeGroup = (RadioGroup) findViewById(R.id.radio_group_type);
 
@@ -54,6 +58,7 @@ public class SelectPackage extends AppCompatActivity {
             rdbtn.setText(Helper.typeList.get(i).name);
             rdbtn.setTextColor(Color.parseColor("#FFFFFF"));
             ((ViewGroup) findViewById(R.id.radio_group_type)).addView(rdbtn);
+            if(i == 0 && Helper.typeList.size() != 0){ typeGroup.check(rdbtn.getId()); }
         }
 
         languageGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -78,16 +83,20 @@ public class SelectPackage extends AppCompatActivity {
             }
         });
 
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#5087E1"), PorterDuff.Mode.MULTIPLY);
+
+        languageGroup.check(R.id.radio_english);
+
         Helper.inicActionBarDrawer(this,getResources().getString(R.string.title_activity_select_package));
 
     }
 
     private void refreshList(int type, String lang){
+        lv.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
         CrosswordDbHelper mDBHelper = new CrosswordDbHelper(this);
         ArrayList<Package> packageList = new ArrayList<>();
         Cursor c = mDBHelper.getAllPackages(lang,type);
-
-        Log.d("MYTAG", "Packages on device = " + c.getCount());
 
         Package pack;
         if (c != null) {
@@ -106,8 +115,9 @@ public class SelectPackage extends AppCompatActivity {
             }
             c.close();
         }
-
         lv.setAdapter(new ListSelectPackageAdapter(this, R.layout.list_item, packageList));
+        lv.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -129,7 +139,13 @@ public class SelectPackage extends AppCompatActivity {
     public void setLocale() {
         SharedPreferences shpref = PreferenceManager.getDefaultSharedPreferences(this);
         String languageToLoad  = shpref.getString("listPref", "sr_RS");
-        Locale locale = new Locale(languageToLoad.split("_",2)[0],languageToLoad.split("_",2)[1]);
+        Locale locale;
+        try {
+            locale = new Locale(languageToLoad.split("_", 2)[0], languageToLoad.split("_", 2)[1]);
+        }catch (ArrayIndexOutOfBoundsException arex){
+            Log.d("MYTAG",arex.getMessage());
+            locale = new Locale("en", "US");
+        }
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;

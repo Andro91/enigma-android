@@ -3,13 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    android:background="#888888">
-
+    android:background="@color/colorPrimary">
     <TextView
         android:id="@+id/toolbar_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/textColorPrimary"
         android:textSize="20sp"/>
-
 </android.support.v7.widget.Toolbar>

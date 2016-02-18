@@ -45,5 +45,6 @@
     <string name="select_package_type">Select package type</string>
     <string name="select_type">Select type</string>
     <string name="filter_packages">Filter packages</string>
+    <string name="purchased_download">You have already purchased this package. You can download it to your device.</string>
 
 </resources>

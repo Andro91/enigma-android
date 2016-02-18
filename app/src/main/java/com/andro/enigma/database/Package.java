@@ -5,12 +5,13 @@ package com.andro.enigma.database;
  */
 public class Package {
 
-    public Package(int id, String title, String lang, String date_created, int idType) {
+    public Package(int id, String title, String lang, String date_created, int idType, int enigmaCount) {
         this.id = id;
         this.title = title;
         this.lang = lang;
         this.dateCreated = date_created;
         this.idType = idType;
+        this.enigmaCount = enigmaCount;
     }
 
     public Package(int id, String title, String lang, String date_created, int idType,
