@@ -1,6 +1,8 @@
 package com.andro.enigma.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
@@ -66,6 +68,17 @@ public class GetPackageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_package);
+
+        SharedPreferences sharedpreferences = getSharedPreferences("Enigma user", Context.MODE_PRIVATE);
+
+        Log.d("USERNAME","" + sharedpreferences.getString("userId","NEMA"));
+        if(sharedpreferences.getString("userId",null) == null){
+            Intent i = new Intent(GetPackageActivity.this,LoginActivity.class);
+            i.putExtras(getIntent().getExtras());
+
+            startActivity(i);
+            finish();
+        }
 
         packageId = getIntent().getIntExtra("id", 0);
         packageTitle = getIntent().getStringExtra("title");

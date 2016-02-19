@@ -46,5 +46,8 @@
     <string name="select_type">Select type</string>
     <string name="filter_packages">Filter packages</string>
     <string name="purchased_download">You have already purchased this package. You can download it to your device.</string>
+    <string name="title_activity_login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
 
 </resources>
