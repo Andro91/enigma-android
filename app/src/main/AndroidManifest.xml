@@ -66,11 +66,9 @@
             android:label="@string/title_activity_select_package"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activity.PackageTypeActivity"
-            android:label="@string/title_activity_package_type" />
-        <activity
             android:name=".activity.LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:theme="@style/AppLoginTheme"
+            android:label="@string/title_activity_login"/>
     </application>
 
 </manifest>

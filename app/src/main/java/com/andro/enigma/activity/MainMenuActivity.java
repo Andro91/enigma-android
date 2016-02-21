@@ -1,6 +1,7 @@
 package com.andro.enigma.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -13,17 +14,17 @@ import android.view.View;
 import android.widget.Button;
 
 import com.andro.enigma.R;
+import com.andro.enigma.helper.Helper;
 import com.andro.enigma.settings.MySettings;
 
 import java.util.Locale;
 
 public class MainMenuActivity extends Activity {
 
-    Button free;
-    Button paid25;
-    Button paid50;
-    Button settings;
+    Button free, buyEnigmas, login, settings;
     public static Activity activity;
+    boolean loggedIn = false;
+    SharedPreferences sharedpreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,26 +32,46 @@ public class MainMenuActivity extends Activity {
         setContentView(R.layout.main_menu);
 
         activity = this;
-
-        //paid50 = (Button) findViewById(R.id.button_50);
-        paid25 = (Button) findViewById(R.id.button_25);
         free = (Button) findViewById(R.id.button_free);
+        buyEnigmas = (Button) findViewById(R.id.button_get_new);
+        login = (Button) findViewById(R.id.button_login);
         settings = (Button) findViewById(R.id.button_settings);
 
         free.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainMenuActivity.this, SelectPackage.class);
-                i.putExtra("crosswordNumber",1);
+                i.putExtra("crosswordNumber", 1);
                 startActivity(i);
             }
         });
 
-        paid25.setOnClickListener(new View.OnClickListener() {
+        buyEnigmas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainMenuActivity.this, PackageActivity.class);
                 startActivity(i);
+            }
+        });
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (loggedIn){
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.remove("userId");
+                    editor.commit();
+                    loggedIn = Helper.checkLogin(MainMenuActivity.this);
+                    login.setText(getResources().getString(R.string.button_login));
+                    if (loggedIn){
+                        Log.d("LOGIN","true");
+                    }else {
+                        Log.d("LOGIN","false");
+                    }
+                }else {
+                    Intent i = new Intent(MainMenuActivity.this, LoginActivity.class);
+                    startActivity(i);
+                }
             }
         });
 
@@ -66,6 +87,7 @@ public class MainMenuActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        loggedIn = Helper.checkLogin(MainMenuActivity.this);
         setLocale();
     }
 
@@ -85,6 +107,11 @@ public class MainMenuActivity extends Activity {
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
         invalidateOptionsMenu();
+        if (loggedIn){
+            login.setText(getResources().getString(R.string.button_logout));
+        }else {
+            login.setText(getResources().getString(R.string.button_login));
+        }
     }
 
     @Override

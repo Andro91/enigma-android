@@ -6,7 +6,9 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +20,7 @@ import com.andro.enigma.database.*;
 import com.andro.enigma.database.Package;
 import com.andro.enigma.helper.Helper;
 import com.andro.enigma.parser.JsonParser;
+import com.andro.enigma.settings.MySettings;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,7 +28,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends AppCompatActivity {
 
     TextView txtTitle, txtUsername, txtPassword;
     EditText editUsername, editPassword;
@@ -43,7 +46,17 @@ public class LoginActivity extends Activity {
 
         initializeView();
         fillData();
+        Helper.inicActionBarUp(this,getResources().getString(R.string.title_activity_login));
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void initializeView(){

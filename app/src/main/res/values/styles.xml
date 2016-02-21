@@ -4,7 +4,6 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="android:popupMenuStyle">@style/PopupMenu</item>
         <item name="colorControlNormal">#FFFFFF</item>
         <item name="colorControlActivated">#FFFFFF</item>
         <item name="colorControlHighlight">#30ffffff</item>
@@ -28,7 +27,8 @@
         <item name="android:textSize">20sp</item>
     </style>
 
-    <style name="PopupMenu" parent="@android:style/Widget.Holo.Light.ListPopupWindow">
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_example</item>
+    <style name="AppLoginTheme" parent="AppTheme">
+        <item name="colorControlNormal">@color/colorPrimaryDark</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
     </style>
 </resources>

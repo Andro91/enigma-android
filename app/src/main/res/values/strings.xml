@@ -35,11 +35,10 @@
     <string name="number_label">Number of enigmas:</string>
     <string name="download_done">Download complete.</string>
     <string name="enigmas_text">enigmas</string>
-    <string name="download">Downloading...</string>
+    <string name="download">Downloading…</string>
     <string name="purchase_success">Purchase successful!</string>
     <string name="purchase_cancel">Purchase cancelled.</string>
     <string name="purchase_error">Purchase error!</string>
-    <string name="title_activity_package_type">PackageTypeActivity</string>
     <string name="english" translatable="false">English</string>
     <string name="serbian" translatable="false">Srpski</string>
     <string name="select_package_type">Select package type</string>
@@ -49,5 +48,8 @@
     <string name="title_activity_login">Login</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="button_login">Login</string>
+    <string name="button_logout">Logout</string>
+    <string name="main_menu_hello">Hello,</string>
 
 </resources>

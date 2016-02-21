@@ -1,6 +1,7 @@
 package com.andro.enigma.helper;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
@@ -156,6 +157,15 @@ public class Helper {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static boolean checkLogin(Context context){
+        SharedPreferences sharedpreferences = context.getSharedPreferences("Enigma user", Context.MODE_PRIVATE);
+        if(sharedpreferences.getString("userId", null) == null){
+            return false;
+        }else{
+            return true;
+        }
     }
 
 }

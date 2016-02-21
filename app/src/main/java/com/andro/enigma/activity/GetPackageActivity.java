@@ -73,7 +73,7 @@ public class GetPackageActivity extends AppCompatActivity {
 
         Log.d("USERNAME","" + sharedpreferences.getString("userId","NEMA"));
         if(sharedpreferences.getString("userId",null) == null){
-            Intent i = new Intent(GetPackageActivity.this,LoginActivity.class);
+            Intent i = new Intent(GetPackageActivity.this, LoginActivity.class);
             i.putExtras(getIntent().getExtras());
 
             startActivity(i);

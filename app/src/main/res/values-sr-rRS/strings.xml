@@ -47,5 +47,8 @@
     <string name="title_activity_login">Prijava</string>
     <string name="username">Korisničko ime</string>
     <string name="password">Šifra</string>
+    <string name="button_login">Prijava</string>
+    <string name="button_logout">Odjava</string>
+    <string name="main_menu_hello">Zdravo, </string>
 
 </resources>

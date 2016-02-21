@@ -46,6 +46,11 @@ public class PackageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_package_activty);
 
+        if (!Helper.checkLogin(this)){
+            Intent i = new Intent(PackageActivity.this, LoginActivity.class);
+            startActivity(i);
+        }
+
         Helper.inicActionBarDrawer(this, getResources().getString(R.string.title_activity_package_activty));
 
         RadioGroup languageGroup = (RadioGroup) findViewById(R.id.radio_group_lang);
