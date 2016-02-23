@@ -1,5 +1,6 @@
 package com.andro.enigma.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -20,6 +21,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.andro.enigma.R;
 import com.andro.enigma.adapter.ListAdapter;
@@ -48,7 +50,7 @@ public class PackageActivity extends AppCompatActivity {
 
         if (!Helper.checkLogin(this)){
             Intent i = new Intent(PackageActivity.this, LoginActivity.class);
-            startActivity(i);
+            startActivityForResult(i, Helper.REQUEST_LOGIN_CODE);
         }
 
         Helper.inicActionBarDrawer(this, getResources().getString(R.string.title_activity_package_activty));
@@ -89,6 +91,21 @@ public class PackageActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Helper.REQUEST_LOGIN_CODE) {
+            if(resultCode == Activity.RESULT_OK){
+                String result = data.getStringExtra("result");
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(PackageActivity.this, getResources().getString(R.string.login_fail), Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
     }
 
     @Override

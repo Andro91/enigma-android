@@ -52,5 +52,8 @@
     <string name="button_logout">Logout</string>
     <string name="main_menu_hello">Hello,</string>
     <string name="login_not_registered">You are not registered!</string>
+    <string name="login_fail">Login failed!</string>
+    <string name="register_link">Register now!</string>
+    <string name="login_success">Login successful!</string>
 
 </resources>

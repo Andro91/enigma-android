@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,7 +32,7 @@ import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
-    TextView txtTitle, txtUsername, txtPassword;
+    TextView txtTitle, txtUsername, txtPassword, txtRegister;
     EditText editUsername, editPassword;
     Button buttonLogin;
     String username, password;
@@ -39,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
     AppCompatActivity activity;
 
-    boolean loginSuccess;
+    boolean loginSuccess = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onPause();
         Intent returnIntent = new Intent();
         if(loginSuccess){
-            returnIntent.putExtra("result","success");
+            returnIntent.putExtra("result","OK");
             setResult(Activity.RESULT_OK, returnIntent);
             finish();
         }else{
@@ -83,11 +85,13 @@ public class LoginActivity extends AppCompatActivity {
         txtTitle = (TextView) findViewById(R.id.text_title);
         txtUsername = (TextView) findViewById(R.id.text_username);
         txtPassword = (TextView) findViewById(R.id.text_password);
+        txtRegister = (TextView) findViewById(R.id.text_register_link);
 
         editUsername = (EditText) findViewById(R.id.edittext_username);
         editPassword = (EditText) findViewById(R.id.edittext_password);
 
         buttonLogin = (Button) findViewById(R.id.button_login);
+
     }
 
     public void fillData(){
@@ -98,16 +102,21 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            username = editUsername.getText().toString();
-            password = editPassword.getText().toString();
+                username = editUsername.getText().toString();
+                password = editPassword.getText().toString();
 
-            if(Helper.isBlank(username) || Helper.isBlank(password)){
-                Toast.makeText(LoginActivity.this, "Invalid input!", Toast.LENGTH_SHORT).show();
-            }else{
-                new JSONParse().execute();
-            }
+                if (Helper.isBlank(username) || Helper.isBlank(password)) {
+                    Toast.makeText(LoginActivity.this, "Invalid input!", Toast.LENGTH_SHORT).show();
+                } else {
+                    new JSONParse().execute();
+                }
             }
         });
+
+        txtRegister.setClickable(true);
+        txtRegister.setMovementMethod(LinkMovementMethod.getInstance());
+        String text = "<a href='" + Helper.HOME_URL + Helper.REGISTER_URL + "'> " + getResources().getString(R.string.register_link) + " </a>";
+        txtRegister.setText(Html.fromHtml(text));
     }
 
     private class JSONParse extends AsyncTask<String, String, JSONObject> {
@@ -153,6 +162,9 @@ public class LoginActivity extends AppCompatActivity {
             editor.putString("userId", userId);
             editor.commit();
             loginSuccess = true;
+            Toast.makeText(activity, activity.getResources().getString(R.string.login_success), Toast.LENGTH_SHORT).show();
+            onPause();
+            //finish();
         }
     }
 

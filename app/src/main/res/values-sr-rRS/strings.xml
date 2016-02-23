@@ -51,5 +51,8 @@
     <string name="button_logout">Odjava</string>
     <string name="main_menu_hello">Zdravo, </string>
     <string name="login_not_registered">Niste registrovani korisnik!</string>
+    <string name="login_fail">Prijava nije uspela!</string>
+    <string name="register_link">Registrujte se!</string>
+    <string name="login_success">Prijava uspešna!</string>
 
 </resources>

@@ -58,6 +58,7 @@ public class MainMenuActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (loggedIn){
+                    sharedpreferences = getSharedPreferences("Enigma user", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.remove("userId");
                     editor.commit();

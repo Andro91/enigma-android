@@ -29,11 +29,14 @@ public class Helper {
 
     public static final String HOME_URL = "http://www.develop.enigma-aeiou.net";
     public static final String PACKAGE_TYPES_URL = "/service/getpackagetypes?seckey=EnIgmAAEIOU";
+    public static final String REGISTER_URL = "/register-user";
+    public static final int REQUEST_LOGIN_CODE = 123;
+
 
     //PayPal configuration
 
-    public static final String CONFIG_CLIENT_ID = "AT99fIs7li4ccLVrKjPCRxy3AJrbIi8jIZK9aDSCJb8pGwWPKsVbFEDnUkPDtUbsW6hZb5Rlz6T92g34";
-    public static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_SANDBOX;
+    public static final String CONFIG_CLIENT_ID = "Adon5OEd562P342BhmJnXmStn7HTJadYXpVVwtPSH2cWVJllA-zl0JIOeltfGx_JfKRbeCjupUHRFd17";
+    public static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_PRODUCTION;
     public static final int REQUEST_CODE_PAYMENT = 1;
     public static final int REQUEST_CODE_FUTURE_PAYMENT = 2;
 

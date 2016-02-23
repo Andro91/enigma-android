@@ -62,5 +62,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/title_activity_login" />
+
+        <TextView
+            android:id="@+id/text_register_link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/register_link"
+            android:textSize="20sp" />
     </LinearLayout>
 </LinearLayout>
