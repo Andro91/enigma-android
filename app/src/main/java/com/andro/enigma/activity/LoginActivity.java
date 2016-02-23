@@ -37,17 +37,37 @@ public class LoginActivity extends AppCompatActivity {
 
     Bundle getPackage;
 
+    AppCompatActivity activity;
+
+    boolean loginSuccess;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        getPackage = getIntent().getExtras();
+        activity = this;
+        loginSuccess = false;
+        //getPackage = getIntent().getExtras();
 
         initializeView();
         fillData();
         Helper.inicActionBarUp(this,getResources().getString(R.string.title_activity_login));
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Intent returnIntent = new Intent();
+        if(loginSuccess){
+            returnIntent.putExtra("result","success");
+            setResult(Activity.RESULT_OK, returnIntent);
+            finish();
+        }else{
+            setResult(Activity.RESULT_CANCELED, returnIntent);
+            finish();
+        }
     }
 
     @Override
@@ -78,14 +98,14 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                username = editUsername.getText().toString();
-                password = editPassword.getText().toString();
+            username = editUsername.getText().toString();
+            password = editPassword.getText().toString();
 
-                if(Helper.isBlank(username) || Helper.isBlank(password)){
-                    Toast.makeText(LoginActivity.this, "Invalid input!", Toast.LENGTH_SHORT).show();
-                }else{
-                    new JSONParse().execute();
-                }
+            if(Helper.isBlank(username) || Helper.isBlank(password)){
+                Toast.makeText(LoginActivity.this, "Invalid input!", Toast.LENGTH_SHORT).show();
+            }else{
+                new JSONParse().execute();
+            }
             }
         });
     }
@@ -125,18 +145,14 @@ public class LoginActivity extends AppCompatActivity {
                 jex.printStackTrace();
             }
             if(userId.equalsIgnoreCase("0")){
+                Toast.makeText(activity, activity.getResources().getString(R.string.login_not_registered), Toast.LENGTH_SHORT).show();
                 return;
             }
             SharedPreferences sharedpreferences = getSharedPreferences("Enigma user", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putString("userId", userId);
             editor.commit();
-
-            Intent i = new Intent(LoginActivity.this, GetPackageActivity.class);
-            i.putExtras(getPackage);
-
-            startActivity(i);
-            finish();
+            loginSuccess = true;
         }
     }
 

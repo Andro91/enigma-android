@@ -51,5 +51,6 @@
     <string name="button_login">Login</string>
     <string name="button_logout">Logout</string>
     <string name="main_menu_hello">Hello,</string>
+    <string name="login_not_registered">You are not registered!</string>
 
 </resources>

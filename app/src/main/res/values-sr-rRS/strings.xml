@@ -50,5 +50,6 @@
     <string name="button_login">Prijava</string>
     <string name="button_logout">Odjava</string>
     <string name="main_menu_hello">Zdravo, </string>
+    <string name="login_not_registered">Niste registrovani korisnik!</string>
 
 </resources>
