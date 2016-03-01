@@ -35,7 +35,7 @@ public class Helper {
 
     //PayPal configuration
 
-    public static final String CONFIG_CLIENT_ID = "Adon5OEd562P342BhmJnXmStn7HTJadYXpVVwtPSH2cWVJllA-zl0JIOeltfGx_JfKRbeCjupUHRFd17";
+    public static final String CONFIG_CLIENT_ID = "AZbccY9LwwHaMlDNTFRS6vDECQNP0pT8cqFCn4dPf6aGh9LXpkVLpSsev39RW2HggzPx_sJJmoBwpDsU";
     public static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_PRODUCTION;
     public static final int REQUEST_CODE_PAYMENT = 1;
     public static final int REQUEST_CODE_FUTURE_PAYMENT = 2;
@@ -43,10 +43,7 @@ public class Helper {
     private static PayPalConfiguration config = new PayPalConfiguration()
         .environment(CONFIG_ENVIRONMENT)
         .clientId(CONFIG_CLIENT_ID)
-        .merchantName("Enigma Store")
-        .merchantPrivacyPolicyUri(
-                Uri.parse("https://www.example.com/privacy"))
-                .merchantUserAgreementUri(Uri.parse("https://www.example.com/legal"));
+        .merchantName("Enigma Store");
 
 
     public static List<PackageType> typeList;
