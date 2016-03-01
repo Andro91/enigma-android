@@ -43,7 +43,7 @@ public class SplashActivity extends Activity {
             public void run(){
                 try {
                     synchronized (this){
-                        wait(1500);
+                        sleep(1500);
                     }
                 }
                 catch(InterruptedException ex){
@@ -62,27 +62,50 @@ public class SplashActivity extends Activity {
             Context context = getApplicationContext();
             CrosswordDbHelper mDbHelper = new CrosswordDbHelper(context);
 
-            Crossword one = new Crossword(Integer.MAX_VALUE,1,Integer.MAX_VALUE,"MAKABiiSiDoRLaKeJiaMaNeTNaRoViaRaMiS","NO","0", "sr");
-            Crossword two = new Crossword(Integer.MAX_VALUE-1,2,Integer.MAX_VALUE,"KLaSiKRaSiNaaVaTaRToMaTaaRaRaTKiRiNe","NO","0", "sr");
-            Crossword three = new Crossword(Integer.MAX_VALUE-2,3,Integer.MAX_VALUE,"PoSKoKoRLiNaTMuRaNKaLiTioRaNaCPiJeSa","NO","0", "sr");
-            Crossword four = new Crossword(Integer.MAX_VALUE-3,4,Integer.MAX_VALUE,"VaSKRSeMeRiTNaJaVaSTaMeNKoTaRaiLiRaC","NO","0", "sr");
-            Crossword five = new Crossword(Integer.MAX_VALUE-4,5,Integer.MAX_VALUE,"ZaKuPiiZaZoVMiLoJaSMiReNKuKaWeiToNaC","NO","0", "sr");
-            Crossword six = new Crossword(Integer.MAX_VALUE-5,6,Integer.MAX_VALUE,"PaPKaRoTRoViTRePeTKoMiTioPoJaNPaRaNa","NO","0", "sr");
-            Crossword seven = new Crossword(Integer.MAX_VALUE-6,7,Integer.MAX_VALUE,"BoRaKSoToLiTKaMaRaaKaDeMSaNaNaaRaRaT","NO","0", "sr");
-            Crossword eight = new Crossword(Integer.MAX_VALUE-7,8,Integer.MAX_VALUE,"MaKaKiaNaTaSLiPaZaaMaNaTGuRaTiaSaSiN","NO","0", "sr");
-            Crossword nine = new Crossword(Integer.MAX_VALUE-8,9,Integer.MAX_VALUE,"aLPaKaPaRDoNDuGaRaaTaLiKJaViTiKRoNiN","NO","0", "sr");
-            Crossword ten = new Crossword(Integer.MAX_VALUE-9,10,Integer.MAX_VALUE,"KLaSaRRaRoZiaNaMiTNaGoJaKRoVaRLaNiCi","NO","0", "sr");
+            //Creating free enigma packages
+//            Crossword one = new Crossword(Integer.MAX_VALUE,1,Integer.MAX_VALUE,"MAKABiiSiDoRLaKeJiaMaNeTNaRoViaRaMiS","NO","0", "sr");
+//            Crossword two = new Crossword(Integer.MAX_VALUE-1,2,Integer.MAX_VALUE,"KLaSiKRaSiNaaVaTaRToMaTaaRaRaTKiRiNe","NO","0", "sr");
+//            Crossword three = new Crossword(Integer.MAX_VALUE-2,3,Integer.MAX_VALUE,"PoSKoKoRLiNaTMuRaNKaLiTioRaNaCPiJeSa","NO","0", "sr");
+//            Crossword four = new Crossword(Integer.MAX_VALUE-3,4,Integer.MAX_VALUE,"VaSKRSeMeRiTNaJaVaSTaMeNKoTaRaiLiRaC","NO","0", "sr");
+//            Crossword five = new Crossword(Integer.MAX_VALUE-4,5,Integer.MAX_VALUE,"ZaKuPiiZaZoVMiLoJaSMiReNKuKaWeiToNaC","NO","0", "sr");
+//            Crossword six = new Crossword(Integer.MAX_VALUE-5,6,Integer.MAX_VALUE,"PaPKaRoTRoViTRePeTKoMiTioPoJaNPaRaNa","NO","0", "sr");
+//            Crossword seven = new Crossword(Integer.MAX_VALUE-6,7,Integer.MAX_VALUE,"BoRaKSoToLiTKaMaRaaKaDeMSaNaNaaRaRaT","NO","0", "sr");
+//            Crossword eight = new Crossword(Integer.MAX_VALUE-7,8,Integer.MAX_VALUE,"MaKaKiaNaTaSLiPaZaaMaNaTGuRaTiaSaSiN","NO","0", "sr");
+//            Crossword nine = new Crossword(Integer.MAX_VALUE-8,9,Integer.MAX_VALUE,"aLPaKaPaRDoNDuGaRaaTaLiKJaViTiKRoNiN","NO","0", "sr");
+//            Crossword ten = new Crossword(Integer.MAX_VALUE-9,10,Integer.MAX_VALUE,"KLaSaRRaRoZiaNaMiTNaGoJaKRoVaRLaNiCi","NO","0", "sr");
+//
+//            Crossword one_en = new Crossword(Integer.MAX_VALUE-11,1,Integer.MAX_VALUE-1,"_ReaD_LaNCeTiNRuSHSCaMPiPiGeoN_DeNT_","NO","0", "en");
+//            Crossword two_en = new Crossword(Integer.MAX_VALUE-12,2,Integer.MAX_VALUE-1,"_PLuG_TRiPoDRoaDieoPiaTeTeSTeR_LeeR_","NO","0", "en");
+//            Crossword three_en = new Crossword(Integer.MAX_VALUE-13,3,Integer.MAX_VALUE-1,"_SLaG_THeSiSHaSSLeuPSiDeGeeZeR_DeeD_","NO","0", "en");
+//            Crossword four_en = new Crossword(Integer.MAX_VALUE-14,4,Integer.MAX_VALUE-1,"_DoSH_SeRieSaNNeaLSTaRVeHaTReD_LeaN_","NO","0", "en");
+//            Crossword five_en = new Crossword(Integer.MAX_VALUE-15,5,Integer.MAX_VALUE-1,"_TiNT_LiNeuPiNHeReSHaDeSPaLLeT_TeeN_","NO","0", "en");
+//            Crossword six_en = new Crossword(Integer.MAX_VALUE-16,6,Integer.MAX_VALUE-1,"_HeRS_CaViaRoRioLeMaNTiSaSCeNT_SeRe_","NO","0", "en");
+//            Crossword seven_en = new Crossword(Integer.MAX_VALUE-17,7,Integer.MAX_VALUE-1,"_aLSo_SNiPPYeNTReeReTiNaFaLTeR_LeeR_","NO","0", "en");
+//            Crossword eight_en = new Crossword(Integer.MAX_VALUE-18,8,Integer.MAX_VALUE-1,"_PLuS_TRiPuPRoaDieoPiaTeTeSTeR_ReeD_","NO","0", "en");
+//            Crossword nine_en = new Crossword(Integer.MAX_VALUE-19,9,Integer.MAX_VALUE-1,"_aPSe_GRouNDaRNiCaLeCToRaSHoRe_ToRe_","NO","0", "en");
+//            Crossword ten_en = new Crossword(Integer.MAX_VALUE-20,10,Integer.MAX_VALUE-1,"_LiSP_WaMPuMaMPeReDeiCeReNSiLe_THeY_","NO","0", "en");
 
-            Crossword one_en = new Crossword(Integer.MAX_VALUE-11,1,Integer.MAX_VALUE-1,"_ReaD_LaNCeTiNRuSHSCaMPiPiGeoN_DeNT_","NO","0", "en");
-            Crossword two_en = new Crossword(Integer.MAX_VALUE-12,2,Integer.MAX_VALUE-1,"_PLuG_TRiPoDRoaDieoPiaTeTeSTeR_LeeR_","NO","0", "en");
-            Crossword three_en = new Crossword(Integer.MAX_VALUE-13,3,Integer.MAX_VALUE-1,"_SLaG_THeSiSHaSSLeuPSiDeGeeZeR_DeeD_","NO","0", "en");
-            Crossword four_en = new Crossword(Integer.MAX_VALUE-14,4,Integer.MAX_VALUE-1,"_DoSH_SeRieSaNNeaLSTaRVeHaTReD_LeaN_","NO","0", "en");
-            Crossword five_en = new Crossword(Integer.MAX_VALUE-15,5,Integer.MAX_VALUE-1,"_TiNT_LiNeuPiNHeReSHaDeSPaLLeT_TeeN_","NO","0", "en");
-            Crossword six_en = new Crossword(Integer.MAX_VALUE-16,6,Integer.MAX_VALUE-1,"_HeRS_CaViaRoRioLeMaNTiSaSCeNT_SeRe_","NO","0", "en");
-            Crossword seven_en = new Crossword(Integer.MAX_VALUE-17,7,Integer.MAX_VALUE-1,"_aLSo_SNiPPYeNTReeReTiNaFaLTeR_LeeR_","NO","0", "en");
-            Crossword eight_en = new Crossword(Integer.MAX_VALUE-18,8,Integer.MAX_VALUE-1,"_PLuS_TRiPuPRoaDieoPiaTeTeSTeR_ReeD_","NO","0", "en");
-            Crossword nine_en = new Crossword(Integer.MAX_VALUE-19,9,Integer.MAX_VALUE-1,"_aPSe_GRouNDaRNiCaLeCToRaSHoRe_ToRe_","NO","0", "en");
-            Crossword ten_en = new Crossword(Integer.MAX_VALUE-20,10,Integer.MAX_VALUE-1,"_LiSP_WaMPuMaMPeReDeiCeReNSiLe_THeY_","NO","0", "en");
+            Crossword one = new Crossword(Integer.MAX_VALUE,1,Integer.MAX_VALUE,"MAKABIISIDORLAKEJIAMANETNAROVIARAMIS","NO","0", "sr");
+            Crossword two = new Crossword(Integer.MAX_VALUE-1,2,Integer.MAX_VALUE,"KLASIKRASINAAVATARTOMATAARARATKIRINE","NO","0", "sr");
+            Crossword three = new Crossword(Integer.MAX_VALUE-2,3,Integer.MAX_VALUE,"POSKOKORLINATMURANKALITIORANACPIJESA","NO","0", "sr");
+            Crossword four = new Crossword(Integer.MAX_VALUE-3,4,Integer.MAX_VALUE,"VASKRSEMERITNAJAVASTAMENKOTARAILIRAC","NO","0", "sr");
+            Crossword five = new Crossword(Integer.MAX_VALUE-4,5,Integer.MAX_VALUE,"ZAKUPIIZAZOVMILOJASMIRENKUKAWEITONAC","NO","0", "sr");
+            Crossword six = new Crossword(Integer.MAX_VALUE-5,6,Integer.MAX_VALUE,"PAPKAROTROVITREPETKOMITIOPOJANPARANA","NO","0", "sr");
+            Crossword seven = new Crossword(Integer.MAX_VALUE-6,7,Integer.MAX_VALUE,"BORAKSOTOLITKAMARAAKADEMSANANAARARAT","NO","0", "sr");
+            Crossword eight = new Crossword(Integer.MAX_VALUE-7,8,Integer.MAX_VALUE,"MAKAKIANATASLIPAZAAMANATGURATIASASIN","NO","0", "sr");
+            Crossword nine = new Crossword(Integer.MAX_VALUE-8,9,Integer.MAX_VALUE,"ALPAKAPARDONDUGARAATALIKJAVITIKRONIN","NO","0", "sr");
+            Crossword ten = new Crossword(Integer.MAX_VALUE-9,10,Integer.MAX_VALUE,"KLASARRAROZIANAMITNAGOJAKROVARLANICI","NO","0", "sr");
+
+            Crossword one_en = new Crossword(Integer.MAX_VALUE-11,1,Integer.MAX_VALUE-1,"_READ_LANCETINRUSHSCAMPIPIGEON_DENT_","NO","0", "en");
+            Crossword two_en = new Crossword(Integer.MAX_VALUE-12,2,Integer.MAX_VALUE-1,"_PLUG_TRIPODROADIEOPIATETESTER_LEER_","NO","0", "en");
+            Crossword three_en = new Crossword(Integer.MAX_VALUE-13,3,Integer.MAX_VALUE-1,"_SLAG_THESISHASSLEUPSIDEGEEZER_DEED_","NO","0", "en");
+            Crossword four_en = new Crossword(Integer.MAX_VALUE-14,4,Integer.MAX_VALUE-1,"_DOSH_SERIESANNEALSTARVEHATRED_LEAN_","NO","0", "en");
+            Crossword five_en = new Crossword(Integer.MAX_VALUE-15,5,Integer.MAX_VALUE-1,"_TINT_LINEUPINHERESHADESPALLET_TEEN_","NO","0", "en");
+            Crossword six_en = new Crossword(Integer.MAX_VALUE-16,6,Integer.MAX_VALUE-1,"_HERS_CAVIARORIOLEMANTISASCENT_SERE_","NO","0", "en");
+            Crossword seven_en = new Crossword(Integer.MAX_VALUE-17,7,Integer.MAX_VALUE-1,"_ALSO_SNIPPYENTREERETINAFALTER_LEER_","NO","0", "en");
+            Crossword eight_en = new Crossword(Integer.MAX_VALUE-18,8,Integer.MAX_VALUE-1,"_PLUS_TRIPUPROADIEOPIATETESTER_REED_","NO","0", "en");
+            Crossword nine_en = new Crossword(Integer.MAX_VALUE-19,9,Integer.MAX_VALUE-1,"_APSE_GROUNDARNICALECTORASHORE_TORE_","NO","0", "en");
+            Crossword ten_en = new Crossword(Integer.MAX_VALUE-20,10,Integer.MAX_VALUE-1,"_LISP_WAMPUMAMPEREDEICERENSILE_THEY_","NO","0", "en");
 
     //        UNCOMMENT TO DELETE DATABASE RECORDS
     //        CrosswordDbHelper dbh = new CrosswordDbHelper(this);

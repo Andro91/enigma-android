@@ -16,7 +16,7 @@
     <string name="main_menu_button_2">25 enigmi (0.5$)</string>
     <string name="main_menu_button_3">50 enigmi (1$)</string>
     <string name="main_menu_button_4">Preuzmi nove Enigme!</string>
-    <string name="congratulations">Čestitamo!!!</string>
+    <string name="congratulations">Bravo!</string>
     <string name="main_menu">Glavni meni</string>
     <string name="main_menu_button_settings">Podešavanja</string>
     <string name="current_time">Prolazno vreme: </string>
@@ -54,5 +54,7 @@
     <string name="login_fail">Prijava nije uspela!</string>
     <string name="register_link">Registrujte se!</string>
     <string name="login_success">Prijava uspešna!</string>
+    <string name="tutorial_title">Uputstvo</string>
+    <string name="tutorial_text">Izaberite prazno polje u rešetki. Kliknite na jedan od samoglasnika (A, E, I, O, U)  na tastaturi. Pri pravilnom izboru polje se zaključava. Ponovite na ostalim praznim poljima i rešite (odgonetnite) enigmu. Srećno!</string>
 
 </resources>

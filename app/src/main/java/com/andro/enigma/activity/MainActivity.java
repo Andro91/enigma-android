@@ -3,6 +3,7 @@ package com.andro.enigma.activity;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -10,6 +11,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -44,9 +46,12 @@ public class MainActivity extends AppCompatActivity {
     private int crosswordNumber;
     private int enigmaId;
     private int packageId;
+    private String packageLang;
     private String currentLocale;
     private String excludeString = "AEIOU";
     private Helper helper;
+    private Button next, previous;
+    private TextWatcher myTextChanged;
 
     public int getCrosswordNumber() {
         return crosswordNumber;
@@ -78,9 +83,7 @@ public class MainActivity extends AppCompatActivity {
         this.letters[position] = letter;
     }
 
-    public void setField(EditText editText, int fieldNumber) {
-        this.crossword[fieldNumber] = editText;
-    }
+    public void setField(EditText editText, int fieldNumber) { this.crossword[fieldNumber] = editText; }
 
     public EditText getField(int fieldNumber) {
         return crossword[fieldNumber];
@@ -93,25 +96,48 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setLetters(new char[36]);
-        setCrossword(new EditText[36]);
-        helper = new Helper();
+        initializeView();
 
-        crosswordNumber = getIntent().getIntExtra("crosswordNumber",1);
-        packageId = getIntent().getIntExtra("id",0);
-        Log.d("MYTAG","package ID = " + packageId);
+        initializeWidgets();
 
-        crosswordNumberTV = (TextView) findViewById(R.id.text_crossword_number);
-        crosswordRecordTimeTV = (TextView) findViewById(R.id.text_record_time);
-        Button next = (Button) findViewById(R.id.button_next);
-        Button previous = (Button) findViewById(R.id.button_previous);
+        if (checkFirstTime()) {
+            initializeAlertDialog();
+        }
 
+        for (int i = 0;i<=35;i++) {
+            int resID = getResources().getIdentifier("Field" + i, "id", getPackageName());
+            setField((EditText) findViewById(resID), i);
+            getField(i).setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(1)});
+            getField(i).addTextChangedListener(myTextChanged);
+        }
+
+        Helper.inicActionBarUp(this,getResources().getString(R.string.app_name));
+
+    }
+
+    private boolean checkFirstTime() {
+        SharedPreferences sharedpreferences = getSharedPreferences("firstTime", Context.MODE_PRIVATE);
+        if(sharedpreferences.getBoolean("firstTime", true)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+    /**
+     * Initializes widgets on the current View
+     * Adds OnClickListeners and TextWatcher
+     */
+    private void initializeWidgets() {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getCrosswordNumber() == 10){return;}
+                if (getCrosswordNumber() == 10) {
+                    return;
+                }
                 clearCrossword();
-                setCrosswordNumber(getCrosswordNumber()+1);
+                setCrosswordNumber(getCrosswordNumber() + 1);
                 initializeCrossword(getCrosswordNumber(), getLocale(), packageId);
             }
         });
@@ -120,16 +146,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("Crossword", "" + getCrosswordNumber());
-                if(getCrosswordNumber() == 1){return;}
+                if (getCrosswordNumber() == 1) {
+                    return;
+                }
                 clearCrossword();
-                setCrosswordNumber(getCrosswordNumber()-1);
+                setCrosswordNumber(getCrosswordNumber() - 1);
                 initializeCrossword(getCrosswordNumber(), getLocale(), packageId);
             }
         });
 
-        myChrono = (Chronometer) findViewById(R.id.chronometer);
 
-        TextWatcher myTextChanged = new TextWatcher() {
+        myTextChanged = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -142,36 +169,53 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.length() == 0){return;}
-                for (int i = 0;i<=35;i++) {
-                    if (getField(i).getText().hashCode() == s.hashCode()){
-                            if (getField(i).getText().toString().charAt(0) == Character.toUpperCase(getLetter(i))){
-                                getField(i).setEnabled(false);}
-                            break;
+                if (s.length() == 0) {
+                    return;
+                }
+                for (int i = 0; i <= 35; i++) {
+                    if (getField(i).getText().hashCode() == s.hashCode()) {
+                        if (getField(i).getText().toString().charAt(0) == Character.toUpperCase(getLetter(i))) {
+                            getField(i).setEnabled(false);
+                        }
+                        break;
                     }
                 }
                 boolean completed = true;
-                for(EditText et : getCrossword()){
-                    if(et.isEnabled()){
+                for (EditText et : getCrossword()) {
+                    if (et.isEnabled()) {
                         completed = false;
                     }
                 }
-                if(completed){finalizeCrossword();}
+                if (completed) {
+                    finalizeCrossword();
+                }
             }
         };
-
-
-        for (int i = 0;i<=35;i++) {
-            int resID = getResources().getIdentifier("Field" + i, "id", getPackageName());
-            setField((EditText) findViewById(resID), i);
-            getField(i).setFilters(new InputFilter[]{new InputFilter.AllCaps(), new InputFilter.LengthFilter(1)});
-            getField(i).addTextChangedListener(myTextChanged);
-        }
-
-        Helper.inicActionBarUp(this,getResources().getString(R.string.app_name));
-        //initializeCrossword(crosswordNumber);
     }
 
+    /**
+     * Initializes the main content View, and it's children elements
+     */
+    private void initializeView() {
+
+        myChrono = (Chronometer) findViewById(R.id.chronometer);
+        setLetters(new char[36]);
+        setCrossword(new EditText[36]);
+        helper = new Helper();
+        crosswordNumber = getIntent().getIntExtra("crosswordNumber",1);
+        packageId = getIntent().getIntExtra("id",0);
+        packageLang = getIntent().getStringExtra("lang");
+
+        crosswordNumberTV = (TextView) findViewById(R.id.text_crossword_number);
+        crosswordRecordTimeTV = (TextView) findViewById(R.id.text_record_time);
+
+        next = (Button) findViewById(R.id.button_next);
+        previous = (Button) findViewById(R.id.button_previous);
+    }
+
+    /**
+     * Clears the crossword grid from letters, and resets the timer
+     */
     private void clearCrossword(){
         for (EditText item : getCrossword()){
             item.setEnabled(true);
@@ -181,16 +225,50 @@ public class MainActivity extends AppCompatActivity {
         myChrono.setBase(SystemClock.elapsedRealtime());
     }
 
+    /**
+     * Finalizes a crossword, saves the record time, and shows the congratulation message
+     */
     private void finalizeCrossword() {
         myChrono.stop();
         Context context = getApplicationContext();
         CrosswordDbHelper mDbHelper = new CrosswordDbHelper(context);
         mDbHelper.updateCrosswordTime(enigmaId, myChrono.getText().toString(), getLocale());
-        Toast.makeText(getApplicationContext(), getResources().getString(R.string.congratulations) + " " + getResources().getString(R.string.current_time) + " " + myChrono.getText(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), getResources().getString(R.string.congratulations) + "  " + getResources().getString(R.string.current_time) + "  " + myChrono.getText(), Toast.LENGTH_SHORT).show();
     }
 
     /**
-     *
+     * Builds the tutorial alertDialog, with localized messages,
+     * saves the "application has been started for the first time" flag
+     */
+    private void initializeAlertDialog(){
+
+        AlertDialog alertDialog;
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_Light_Dialog_Alert);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.setTitle(getResources().getString(R.string.tutorial_title));
+
+        builder.setMessage(getResources().getString(R.string.tutorial_text));
+
+        alertDialog = builder.create();
+
+        alertDialog.show();
+
+        SharedPreferences sharedpreferences = getSharedPreferences("firstTime", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putBoolean("firstTime", false);
+        editor.commit();
+
+        myChrono.setBase(SystemClock.elapsedRealtime());
+    }
+
+    /**
+     * Loads a crossword from the database
      * @param crosswordNumber
      * Number of the crossword to load
      */
@@ -216,7 +294,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
         assert c != null;
-        Log.d("MYTAG","cursor xount "+c.getCount());
+        Log.d("MYTAG","cursor count " + c.getCount());
         c.moveToPosition(crosswordNumber-1);
 
         String inputString = c.getString(c.getColumnIndexOrThrow(CrosswordContract.CrosswordEntry.COLUMN_NAME_TEXT));
@@ -226,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
         char[] charArray = inputString.toCharArray();
         setLetters(charArray);
 
-        if(locale.equalsIgnoreCase("sr_RS")) {
+        if(packageLang.equalsIgnoreCase("sr")) {
             for (int i = 0; i <= 35; i++) {
                 if (excludeString.contains(""+charArray[i])) {
                     getField(i).setEnabled(true);
@@ -247,7 +325,7 @@ public class MainActivity extends AppCompatActivity {
                     getField(i).setBackgroundResource(R.drawable.edittext_drawable);
                 }
             }
-        } else if (locale.equalsIgnoreCase("en_US")){
+        } else if (packageLang.equalsIgnoreCase("en")){
             for (int i = 0; i <= 35; i++) {
                 if (charArray[i] == '_') {
                     getField(i).setEnabled(false);
@@ -279,6 +357,9 @@ public class MainActivity extends AppCompatActivity {
         return currentLocale;
     }
 
+    /**
+     * Sets the locale for the current activity, and refreshes the View
+     */
     public void setLocale() {
         SharedPreferences shpref = PreferenceManager.getDefaultSharedPreferences(this);
         String languageToLoad  = shpref.getString("listPref", "sr_RS");

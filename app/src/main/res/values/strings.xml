@@ -16,7 +16,7 @@
     <string name="main_menu_button_2">25 enigmas (0.5$)</string>
     <string name="main_menu_button_3">50 enigmas (1$)</string>
     <string name="main_menu_button_4">Get new Enigmas!</string>
-    <string name="congratulations">Congratulations!!!</string>
+    <string name="congratulations">Bravo!</string>
     <string name="main_menu">Main menu</string>
     <string name="main_menu_button_settings">Settings</string>
     <string name="current_time">Running time: </string>
@@ -55,5 +55,7 @@
     <string name="login_fail">Login failed!</string>
     <string name="register_link">Register now!</string>
     <string name="login_success">Login successful!</string>
+    <string name="tutorial_title">Tutorial</string>
+    <string name="tutorial_text">Select an empty field in the grid. Then, select a vocal (A, E, I, O, U) on the keyboard to fill the field. Correct choice will lock the grid field. Good luck!</string>
 
 </resources>

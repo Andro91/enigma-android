@@ -183,21 +183,67 @@ public class CrosswordDbHelper extends SQLiteOpenHelper {
     }
 
     public long updateCrosswordTime(int crosswordId, String time, String locale) {
-        SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
-        values.put(CrosswordEntry.COLUMN_NAME_SOLVED, "YES");
-        values.put(CrosswordEntry.COLUMN_NAME_TIME, time);
+        String mTimeDouble;
+        double mNewTime, mOldTime;
 
-        long newRowId;
-        newRowId = db.update(
-                CrosswordContract.CrosswordEntry.TABLE_NAME,
-                values,
-                CrosswordEntry.COLUMN_NAME_ID + " = " + crosswordId,
-                null);
+        mTimeDouble = time.replace(":", ".");
 
-        db.close();
-        return newRowId;
+        try {
+            mNewTime = Double.parseDouble(mTimeDouble);
+        }catch (NumberFormatException numex){
+            mNewTime = 0d;
+        }
+
+        SQLiteDatabase dbRead = this.getReadableDatabase();
+
+        String[] projection = {
+                CrosswordEntry.COLUMN_NAME_ID,
+                CrosswordEntry.COLUMN_NAME_TIME,
+        };
+
+        String selection = CrosswordEntry.COLUMN_NAME_ID + " = ? ";
+        String[] selectionArgs = {
+                String.valueOf(crosswordId)
+        };
+
+        Cursor c = dbRead.query(
+                CrosswordEntry.TABLE_NAME,                          // The table to query
+                projection,                                         // The columns to return
+                selection,                                          // The columns for the WHERE clause
+                selectionArgs,                                      // The values for the WHERE clause
+                null,                                               // don't group the rows
+                null,                                               // don't filter by row groups
+                null                                                // The sort order
+        );
+
+        if(c.moveToFirst()) {
+            mOldTime = Double.parseDouble(c.getString(1).replace(":", "."));
+        }else{
+            mOldTime = Double.MAX_VALUE;
+        }
+
+        c.close();
+        dbRead.close();
+
+        if((mOldTime > mNewTime) || (mOldTime == 0.0)) {
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            ContentValues values = new ContentValues();
+            values.put(CrosswordEntry.COLUMN_NAME_SOLVED, "YES");
+            values.put(CrosswordEntry.COLUMN_NAME_TIME, time);
+
+            long newRowId;
+            newRowId = db.update(
+                    CrosswordContract.CrosswordEntry.TABLE_NAME,
+                    values,
+                    CrosswordEntry.COLUMN_NAME_ID + " = " + crosswordId,
+                    null);
+
+            db.close();
+            return newRowId;
+        }
+        return 0;
     }
 
 
