@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="list_array">
-        <item>English</item>
-        <item>Srpski</item>
+        <item>@string/english</item>
+        <item>@string/serbian</item>
     </string-array>
     <string-array name="list_values">
-        <item>en_US</item>
-        <item>sr_RS</item>
+        <item>@string/value_en</item>
+        <item>@string/value_sr</item>
     </string-array>
 </resources>

@@ -56,5 +56,7 @@
     <string name="login_success">Prijava uspešna!</string>
     <string name="tutorial_title">Uputstvo</string>
     <string name="tutorial_text">Izaberite prazno polje u rešetki. Kliknite na jedan od samoglasnika (A, E, I, O, U)  na tastaturi. Pri pravilnom izboru polje se zaključava. Ponovite na ostalim praznim poljima i rešite (odgonetnite) enigmu. Srećno!</string>
+    <string name="value_sr">sr_RS</string>
+    <string name="value_en">en_US</string>
 
 </resources>

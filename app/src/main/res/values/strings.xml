@@ -57,5 +57,7 @@
     <string name="login_success">Login successful!</string>
     <string name="tutorial_title">Tutorial</string>
     <string name="tutorial_text">Select an empty field in the grid. Then, select a vocal (A, E, I, O, U) on the keyboard to fill in the field. Correct choice will lock the grid field. Repeat for other fields to solve the enigma. Good luck!</string>
+    <string name="value_sr">sr_RS</string>
+    <string name="value_en">en_US</string>
 
 </resources>
