@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.andro.enigma.R;
 import com.andro.enigma.database.PackageType;
-import com.paypal.android.sdk.payments.PayPalConfiguration;
+//import com.paypal.android.sdk.payments.PayPalConfiguration;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -29,21 +29,21 @@ public class Helper {
 
     public static final String HOME_URL = "http://www.develop.enigma-aeiou.net";
     public static final String PACKAGE_TYPES_URL = "/service/getpackagetypes?seckey=EnIgmAAEIOU";
-    public static final String REGISTER_URL = "/register-user";
-    public static final int REQUEST_LOGIN_CODE = 123;
+//    public static final String REGISTER_URL = "/register-user";
+//    public static final int REQUEST_LOGIN_CODE = 123;
 
 
     //PayPal configuration
 
-    public static final String CONFIG_CLIENT_ID = "AZbccY9LwwHaMlDNTFRS6vDECQNP0pT8cqFCn4dPf6aGh9LXpkVLpSsev39RW2HggzPx_sJJmoBwpDsU";
-    public static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_PRODUCTION;
-    public static final int REQUEST_CODE_PAYMENT = 1;
-    public static final int REQUEST_CODE_FUTURE_PAYMENT = 2;
+//    public static final String CONFIG_CLIENT_ID = "AZbccY9LwwHaMlDNTFRS6vDECQNP0pT8cqFCn4dPf6aGh9LXpkVLpSsev39RW2HggzPx_sJJmoBwpDsU";
+//    public static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_PRODUCTION;
+//    public static final int REQUEST_CODE_PAYMENT = 1;
+//    public static final int REQUEST_CODE_FUTURE_PAYMENT = 2;
 
-    private static PayPalConfiguration config = new PayPalConfiguration()
-        .environment(CONFIG_ENVIRONMENT)
-        .clientId(CONFIG_CLIENT_ID)
-        .merchantName("Enigma Store");
+//    private static PayPalConfiguration config = new PayPalConfiguration()
+//        .environment(CONFIG_ENVIRONMENT)
+//        .clientId(CONFIG_CLIENT_ID)
+//        .merchantName("Enigma Store");
 
 
     public static List<PackageType> typeList;

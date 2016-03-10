@@ -12,11 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.andro.enigma.R;
-import com.andro.enigma.activity.GetPackageActivity;
 import com.andro.enigma.activity.MainActivity;
-import com.andro.enigma.database.*;
 import com.andro.enigma.database.Package;
-import com.andro.enigma.helper.Helper;
 
 import java.util.ArrayList;
 

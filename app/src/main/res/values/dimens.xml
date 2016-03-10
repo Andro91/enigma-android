@@ -3,7 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">30dp</dimen>
     <dimen name="splash_horizontal_margin">120dp</dimen>
-    <dimen name="main_menu_image_height">110dp</dimen>
+    <dimen name="main_menu_image_height">170dp</dimen>
     <dimen name="main_menu_padding_top">50dp</dimen>
     <dimen name="main_menu_padding">160dp</dimen>
 </resources>

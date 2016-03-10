@@ -33,8 +33,8 @@ public class MainMenuActivity extends Activity {
 
         activity = this;
         free = (Button) findViewById(R.id.button_free);
-        buyEnigmas = (Button) findViewById(R.id.button_get_new);
-        login = (Button) findViewById(R.id.button_login);
+//        buyEnigmas = (Button) findViewById(R.id.button_get_new);
+//        login = (Button) findViewById(R.id.button_login);
         settings = (Button) findViewById(R.id.button_settings);
 
         free.setOnClickListener(new View.OnClickListener() {
@@ -46,35 +46,35 @@ public class MainMenuActivity extends Activity {
             }
         });
 
-        buyEnigmas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainMenuActivity.this, PackageActivity.class);
-                startActivity(i);
-            }
-        });
-
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (loggedIn){
-                    sharedpreferences = getSharedPreferences("Enigma user", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.remove("userId");
-                    editor.commit();
-                    loggedIn = Helper.checkLogin(MainMenuActivity.this);
-                    login.setText(getResources().getString(R.string.button_login));
-                    if (loggedIn){
-                        Log.d("LOGIN","true");
-                    }else {
-                        Log.d("LOGIN","false");
-                    }
-                }else {
-                    Intent i = new Intent(MainMenuActivity.this, LoginActivity.class);
-                    startActivity(i);
-                }
-            }
-        });
+//        buyEnigmas.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(MainMenuActivity.this, PackageActivity.class);
+//                startActivity(i);
+//            }
+//        });
+//
+//        login.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (loggedIn){
+//                    sharedpreferences = getSharedPreferences("Enigma user", Context.MODE_PRIVATE);
+//                    SharedPreferences.Editor editor = sharedpreferences.edit();
+//                    editor.remove("userId");
+//                    editor.commit();
+//                    loggedIn = Helper.checkLogin(MainMenuActivity.this);
+//                    login.setText(getResources().getString(R.string.button_login));
+//                    if (loggedIn){
+//                        Log.d("LOGIN","true");
+//                    }else {
+//                        Log.d("LOGIN","false");
+//                    }
+//                }else {
+//                    Intent i = new Intent(MainMenuActivity.this, LoginActivity.class);
+//                    startActivity(i);
+//                }
+//            }
+//        });
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +88,7 @@ public class MainMenuActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        loggedIn = Helper.checkLogin(MainMenuActivity.this);
+//        loggedIn = Helper.checkLogin(MainMenuActivity.this);
         setLocale();
     }
 
@@ -108,11 +108,11 @@ public class MainMenuActivity extends Activity {
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
         invalidateOptionsMenu();
-        if (loggedIn){
-            login.setText(getResources().getString(R.string.button_logout));
-        }else {
-            login.setText(getResources().getString(R.string.button_login));
-        }
+//        if (loggedIn){
+//            login.setText(getResources().getString(R.string.button_logout));
+//        }else {
+//            login.setText(getResources().getString(R.string.button_login));
+//        }
     }
 
     @Override
